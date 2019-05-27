@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 2019年05月25 20:43
  */
 @Data
-@Document(collection = "News")
+@Document(collection = "news")
 public class News {
     /**
      * 法律法规编码

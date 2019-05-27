@@ -72,7 +72,7 @@ public class NewsServiceMongoImpl implements NewsService {
         query.addCriteria(criteria);
         query.limit(pageUtil.getPageSize());
         List<NewsListVo> listVoList = mongoTemplate
-                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), NewsListVo.class, "goods");
+                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), NewsListVo.class, "news");
         pageUtil.setData(listVoList);
         long count = mongoTemplate.count(query, "news");
         pageUtil.setTotalCount((int) count);

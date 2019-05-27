@@ -51,7 +51,6 @@ public class FileController {
         Map<String, String> map = new HashMap<>(16);
         map.put("code", "1");
         map.put("message", "success");
-        String uploadType = request.getParameter("uploadType");
         for (MultipartFile file : files) {
             try {
                 if (!file.isEmpty()) {
