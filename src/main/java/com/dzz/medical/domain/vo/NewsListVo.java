@@ -1,5 +1,6 @@
 package com.dzz.medical.domain.vo;
 
+import com.dzz.medical.common.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
@@ -82,10 +83,23 @@ public class NewsListVo implements Serializable {
     private Integer status;
 
     /**
+     * 状态中文名
+     */
+    private String statusName;
+
+    /**
      * 创建时间
      */
     @Field("create_time")
     @JsonFormat(pattern="yyyy-MM-dd",timezone="GMT+8")
     private Date createTime;
 
+    /**
+     * 重写get方法
+     * @return 返回中文
+     */
+    public String getStatusName() {
+
+        return StatusEnum.getNameByCode(this.status);
+    }
 }

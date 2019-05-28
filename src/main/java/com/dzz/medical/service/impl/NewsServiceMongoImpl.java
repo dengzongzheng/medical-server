@@ -52,7 +52,11 @@ public class NewsServiceMongoImpl implements NewsService {
 
     @Override
     public ResponseDzz<NewsDetailVo> findNewsByNewsNo(String newsNo) {
-        return null;
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("newsNo").is(newsNo));
+        NewsDetailVo newsDetailVo = mongoTemplate.findOne(query, NewsDetailVo.class, "news");
+        return ResponseDzz.ok(newsDetailVo);
     }
 
     @Override
