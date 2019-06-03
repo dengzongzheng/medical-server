@@ -14,7 +14,8 @@ public enum  CategoryEnum {
     WORKNEWS(1, "工作动态"),
     NOTICE(2, "通知公告"),
     LEGAL(3, "法律法规"),
-    INFORMATION(4, "信息");
+    INFORMATION(4, "信息"),
+    SUPERVISE(5,"监督");
 
     private Integer code;
 

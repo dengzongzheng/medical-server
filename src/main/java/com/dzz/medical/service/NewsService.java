@@ -47,6 +47,15 @@ public interface NewsService {
      */
     ResponseDzz<NewsDetailVo> findNewsByNewsNo(String newsNo);
 
+
+
+    /**
+     * 详情
+     * @param newsNo 编号
+     * @return 查询结果
+     */
+    ResponseDzz<NewsDetailVo> websiteFindNewsByNewsNo(String newsNo);
+
     /**
      * 列表查询
      * @param param 参数

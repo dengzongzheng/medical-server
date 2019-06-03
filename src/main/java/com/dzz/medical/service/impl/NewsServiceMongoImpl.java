@@ -11,9 +11,12 @@ import com.dzz.medical.service.NewsService;
 import com.google.common.base.Strings;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 /**
@@ -60,6 +63,19 @@ public class NewsServiceMongoImpl implements NewsService {
     }
 
     @Override
+    public ResponseDzz<NewsDetailVo> websiteFindNewsByNewsNo(String newsNo) {
+
+        Query query = new Query();
+        Criteria criteria = Criteria.where("newsNo").is(newsNo);
+        query.addCriteria(criteria);
+        Update update = new Update();
+        update.inc("visit_count", 1);
+        mongoTemplate.updateFirst(query,update, "news");
+
+        return findNewsByNewsNo(newsNo);
+    }
+
+    @Override
     public ResponseDzz<PageUtil> listNews(ListNewsParamDto param) {
 
         PageUtil<NewsListVo> pageUtil = new PageUtil<>();
@@ -86,7 +102,23 @@ public class NewsServiceMongoImpl implements NewsService {
 
     @Override
     public ResponseDzz<PageUtil> findNewsByCategory(Integer categoryCode, Integer pageNo, Integer pageSize) {
-        return null;
+
+        PageUtil<NewsListVo> pageUtil = new PageUtil<>();
+        pageUtil.setPageSize(pageSize);
+        pageUtil.setPageNo(pageNo);
+        Sort sort = new Sort(Direction.ASC, "update_date");
+        Query query = new Query();
+        Criteria porcelain = Criteria.where("category_code").is(categoryCode);
+        query.addCriteria(porcelain);
+        query.limit(pageUtil.getPageSize());
+        List<NewsListVo> list = mongoTemplate
+                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()).with(sort), NewsListVo.class,
+                        "news");
+        pageUtil.setData(list);
+        long count = mongoTemplate.count(query, "news");
+        pageUtil.setTotalCount((int) count);
+        pageUtil.setTotalPage();
+        return ResponseDzz.ok(pageUtil);
     }
 
     @Override

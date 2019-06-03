@@ -73,6 +73,12 @@ public class News {
     private String categoryName;
 
     /**
+     * 访问量
+     */
+    @Field("visit_count")
+    private Integer visitCount = 0;
+
+    /**
      * 状态：1:正常、2:下线、0:配置中
      */
     @Field("status")

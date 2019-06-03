@@ -1,4 +1,4 @@
-package com.dzz.medical.manage;
+package com.dzz.medical.controller;
 
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
