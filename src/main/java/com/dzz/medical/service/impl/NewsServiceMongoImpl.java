@@ -57,7 +57,7 @@ public class NewsServiceMongoImpl implements NewsService {
     public ResponseDzz<NewsDetailVo> findNewsByNewsNo(String newsNo) {
 
         Query query = new Query();
-        query.addCriteria(Criteria.where("newsNo").is(newsNo));
+        query.addCriteria(Criteria.where("news_no").is(newsNo));
         NewsDetailVo newsDetailVo = mongoTemplate.findOne(query, NewsDetailVo.class, "news");
         return ResponseDzz.ok(newsDetailVo);
     }
@@ -66,7 +66,7 @@ public class NewsServiceMongoImpl implements NewsService {
     public ResponseDzz<NewsDetailVo> websiteFindNewsByNewsNo(String newsNo) {
 
         Query query = new Query();
-        Criteria criteria = Criteria.where("newsNo").is(newsNo);
+        Criteria criteria = Criteria.where("news_no").is(newsNo);
         query.addCriteria(criteria);
         Update update = new Update();
         update.inc("visit_count", 1);
