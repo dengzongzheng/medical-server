@@ -3,25 +3,25 @@ package com.dzz.medical.common.enums;
 import java.util.Objects;
 
 /**
- * 消息类别分类
+ * 机构类别信息枚举
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年04月24 10:09
+ * @since 2019年06月14 16:28
  */
-public enum  CategoryEnum {
+public enum  OrganizationEnum {
 
-    WORKNEWS(1, "工作动态"),
-    NOTICE(2, "通知公告"),
-    LEGAL(3, "法律法规"),
-    INFORMATION(4, "信息"),
-    SUPERVISE(5,"监督");
+    PUBLIC(1, "公共机构"),
+    SCHOOL(2, "学校"),
+    MEDICAL(3, "医疗机构"),
+    WATER_SUPPLY(4, "供水单位"),
+    SUPERVISORY(5,"监督协管");
 
     private Integer code;
 
     private String name;
 
-    CategoryEnum(Integer code, String name) {
+    OrganizationEnum(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -35,7 +35,7 @@ public enum  CategoryEnum {
     }
 
     public static String getNameByCode(Integer code) {
-        for (CategoryEnum status : CategoryEnum.values()) {
+        for (OrganizationEnum status : OrganizationEnum.values()) {
             if (Objects.equals(code, status.getCode())) {
                 return status.getName();
             }
@@ -44,12 +44,11 @@ public enum  CategoryEnum {
     }
 
     public static Integer getCodeByName(String name) {
-        for (CategoryEnum type : CategoryEnum.values()) {
+        for (OrganizationEnum type : OrganizationEnum.values()) {
             if (Objects.equals(name, type.getName())) {
                 return type.getCode();
             }
         }
         return null;
     }
-
 }

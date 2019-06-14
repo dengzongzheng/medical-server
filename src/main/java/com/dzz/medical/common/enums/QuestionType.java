@@ -3,25 +3,21 @@ package com.dzz.medical.common.enums;
 import java.util.Objects;
 
 /**
- * 消息类别分类
- *
+ * 问题类型
  * @author dzz
  * @version 1.0.0
- * @since 2019年04月24 10:09
+ * @since 2019年06月14 17:25
  */
-public enum  CategoryEnum {
+public enum QuestionType {
 
-    WORKNEWS(1, "工作动态"),
-    NOTICE(2, "通知公告"),
-    LEGAL(3, "法律法规"),
-    INFORMATION(4, "信息"),
-    SUPERVISE(5,"监督");
+    SELECT(1, "选择题"),
+    FILL_IN_BLANK (2, "填空题");
 
     private Integer code;
 
     private String name;
 
-    CategoryEnum(Integer code, String name) {
+    QuestionType(Integer code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -35,7 +31,7 @@ public enum  CategoryEnum {
     }
 
     public static String getNameByCode(Integer code) {
-        for (CategoryEnum status : CategoryEnum.values()) {
+        for (QuestionType status : QuestionType.values()) {
             if (Objects.equals(code, status.getCode())) {
                 return status.getName();
             }
@@ -44,7 +40,7 @@ public enum  CategoryEnum {
     }
 
     public static Integer getCodeByName(String name) {
-        for (CategoryEnum type : CategoryEnum.values()) {
+        for (QuestionType type : QuestionType.values()) {
             if (Objects.equals(name, type.getName())) {
                 return type.getCode();
             }
