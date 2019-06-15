@@ -23,8 +23,14 @@ public class Question implements Serializable {
      * 所属机构
      * @see com.dzz.medical.common.enums.OrganizationEnum code
      */
+    @Field("belong_organization")
     private Integer belongOrganization;
 
+    /**
+     * 所属行业
+     */
+    @Field("belong_industry")
+    private Integer belongIndustry;
 
     /**
      * 题目名称

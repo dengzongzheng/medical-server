@@ -23,7 +23,7 @@ public class Organization implements Serializable {
      * 类别code
      */
     @Field("organization_code")
-    private String organizationCode;
+    private Integer organizationCode;
 
     /**
      * 类别名称

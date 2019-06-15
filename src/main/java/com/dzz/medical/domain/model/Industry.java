@@ -1,7 +1,9 @@
 package com.dzz.medical.domain.model;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,6 +16,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Data
 @Document(collection = "industry")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Industry implements Serializable {
 
     private static final long serialVersionUID = 4287492969428231859L;
@@ -22,7 +26,7 @@ public class Industry implements Serializable {
      * 行业代码
      */
     @Field("code")
-    private String code;
+    private Integer code;
 
     /**
      * 行业名称
