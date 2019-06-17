@@ -27,10 +27,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Slf4j
 public class WxMessageEventController {
 
-    @Autowired
+
     private WxConfig wxConfig;
 
-
+    @Autowired
+    public void setWxConfig(WxConfig wxConfig) {
+        this.wxConfig = wxConfig;
+    }
 
     private MessageEventService messageEventService;
 

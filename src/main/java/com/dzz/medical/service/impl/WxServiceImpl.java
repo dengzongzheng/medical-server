@@ -20,8 +20,13 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class WxServiceImpl implements WxService {
 
-    @Autowired
+
     private WxConfig wxConfig;
+
+    @Autowired
+    public void setWxConfig(WxConfig wxConfig) {
+        this.wxConfig = wxConfig;
+    }
 
     @Override
     public ResponseDzz getAccessToken(String appId, String secret) {

@@ -3,7 +3,6 @@ package com.dzz.medical.service.impl;
 import com.dzz.medical.common.enums.WxManageEnums.MessageEvent;
 import com.dzz.medical.common.enums.WxManageEnums.MessageTypeEnums;
 import com.dzz.medical.config.wx.MessageConfig;
-import com.dzz.medical.config.wx.WxConfig;
 import com.dzz.medical.domain.bo.WxMessageEventBO;
 import com.dzz.medical.domain.common.TextMessage;
 import com.dzz.medical.service.IdService;
@@ -33,8 +32,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MessageEventServiceImpl implements MessageEventService {
 
-    @Autowired
-    private WxConfig wxConfig;
 
     @Autowired
     private IdService idService;
