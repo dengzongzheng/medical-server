@@ -29,12 +29,16 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Slf4j
 public class FileController {
 
-    @Autowired
+
     private UtilConfig utilConfig;
 
     @Autowired
     private IdService idService;
 
+    @Autowired
+    public void setUtilConfig(UtilConfig utilConfig) {
+        this.utilConfig = utilConfig;
+    }
 
     /**
      * 文件上传
