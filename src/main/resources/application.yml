@@ -1,0 +1,25 @@
+server:
+  port: 9080
+
+spring:
+  application:
+    name: medical-server
+  profiles:
+    active: prod
+  servlet:
+    multipart:
+      max-file-size: 50Mb
+      max-request-size: 20Mb
+  data:
+    mongodb:
+      host: 127.0.0.1
+      database: medical
+      username: medical
+      password: 1234Qwer
+      port: 27017
+
+file:
+  upload:
+    path: /data/files/
+  server:
+    path: http://img.sswjjd.cn/

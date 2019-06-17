@@ -1,0 +1,14 @@
+wx:
+  appId: wxf0fadcef4aa450c5
+  appSecret: b9c38a16063e8031f4f5dd58af47c405
+  serverPath: http://sswjjd.cn
+  app:
+    token: wxyangm
+    encodingAESKey: zC8vDJJmmFQaDlZbIEVGLPhKfO55PAgKYE3HI4FaPLe
+    access_token:
+      url: https://api.weixin.qq.com/cgi-bin/token?
+    menu:
+     delete:
+      url: https://api.weixin.qq.com/cgi-bin/menu/delete?
+     create:
+      url: https://api.weixin.qq.com/cgi-bin/menu/create?
