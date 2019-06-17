@@ -23,6 +23,7 @@ public class WxTools {
 
     private WxConfig wxConfig;
 
+    @Autowired
     public void setWxConfig(WxConfig wxConfig) {
         this.wxConfig = wxConfig;
     }
