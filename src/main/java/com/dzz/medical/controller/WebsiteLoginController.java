@@ -3,6 +3,7 @@ package com.dzz.medical.controller;
 import com.dzz.medical.common.codec.UserAccountUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.domain.bo.WebsiteUserDetail;
+import com.dzz.medical.domain.dto.LoginParamDto;
 import com.dzz.medical.domain.dto.WebsiteLoginDto;
 import com.dzz.medical.domain.tools.BeanConvertTools;
 import com.dzz.medical.service.WebsiteUserService;
@@ -12,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -50,23 +50,22 @@ public class WebsiteLoginController {
 
     /**
      * 用户登录
-     * @param userName 用户名
-     * @param password 密码
+     * @param param 用户数据
      * @return 登录结果
      */
     @PostMapping("/websiteLogin")
-    public ResponseDzz websiteLogin(@RequestParam("userName") String userName,
-            @RequestParam("password") String password) {
+    public ResponseDzz websiteLogin(@RequestBody LoginParamDto param) {
 
-        if(Strings.isNullOrEmpty(userName) || Strings.isNullOrEmpty(password)) {
+        if(Strings.isNullOrEmpty(param.getUserName()) || Strings.isNullOrEmpty(param.getPassword())) {
             return ResponseDzz.fail("用户名密码不能为空");
         }
-        ResponseDzz<WebsiteUserDetail> userDetailResponseDzz = websiteUserService.findWebsiteUserByName(userName);
-        if(userDetailResponseDzz.checkFail()) {
+        ResponseDzz<WebsiteUserDetail> userDetailResponseDzz = websiteUserService
+                .findWebsiteUserByName(param.getUserName());
+        if(userDetailResponseDzz.checkFail()||null==userDetailResponseDzz.getData()) {
             return ResponseDzz.fail("用户名或密码错误");
         }
         WebsiteUserDetail userDetail = userDetailResponseDzz.getData();
-        if(!UserAccountUtil.validatePassword(userName, password, userDetail.getPassword())) {
+        if(!UserAccountUtil.validatePassword(param.getUserName(), param.getPassword(), userDetail.getPassword())) {
             return ResponseDzz.fail("用户名或密码错误");
         }
         return ResponseDzz.ok();
