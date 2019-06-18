@@ -15,5 +15,17 @@ public class ListWebsiteUserParamDto implements Serializable {
 
     private static final long serialVersionUID = 4381798040022496457L;
 
+    /**
+     * 内容查询
+     */
+    private String content;
 
+
+    private Integer status;
+
+
+    private Integer pageNo;
+
+
+    private Integer pageSize;
 }

@@ -21,11 +21,18 @@ public class WebsiteUser implements Serializable {
 
     private static final long serialVersionUID = -5326521964675727750L;
 
+
+    /**
+     * 用户名
+     */
+    @Field("user_no")
+    @Indexed(unique = true)
+    private String userNo;
+
     /**
      * 用户名
      */
     @Field("user_name")
-    @Indexed(unique = true)
     private String userName;
 
 

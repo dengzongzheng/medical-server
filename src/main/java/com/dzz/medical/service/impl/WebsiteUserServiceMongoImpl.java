@@ -1,11 +1,14 @@
 package com.dzz.medical.service.impl;
 
+import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.domain.bo.WebsiteUserDetail;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.domain.model.WebsiteUser;
 import com.dzz.medical.domain.vo.WebsiteUserListVo;
 import com.dzz.medical.service.WebsiteUserService;
+import com.google.common.base.Strings;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -38,8 +41,27 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
     }
 
     @Override
-    public ResponseDzz<WebsiteUserListVo> listWebsiteUser(ListWebsiteUserParamDto param) {
-        return null;
+    public ResponseDzz listWebsiteUser(ListWebsiteUserParamDto param) {
+
+
+        PageUtil<WebsiteUserListVo> pageUtil = new PageUtil<>();
+        pageUtil.setPageSize(param.getPageSize());
+        pageUtil.setPageNo(param.getPageNo());
+        Query query = new Query();
+        Criteria criteria = new Criteria();
+        if(!Strings.isNullOrEmpty(param.getContent())) {
+            criteria.and("user_name").is(param.getContent());
+        }
+
+        query.addCriteria(criteria);
+        query.limit(pageUtil.getPageSize());
+        List<WebsiteUserListVo> listVoList = mongoTemplate
+                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), WebsiteUserListVo.class, "website_user");
+        pageUtil.setData(listVoList);
+        long count = mongoTemplate.count(query, "website_user");
+        pageUtil.setTotalCount((int) count);
+        pageUtil.setTotalPage();
+        return ResponseDzz.ok(pageUtil);
     }
 
     @Override
@@ -48,7 +70,16 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user_name").is(userName));
 
-        WebsiteUserDetail websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetail.class);
+        WebsiteUserDetail websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetail.class, "website_user");
+        return ResponseDzz.ok(websiteUserDetail);
+    }
+
+    @Override
+    public ResponseDzz getUserByNo(String userNo) {
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user_no").is(userNo));
+        WebsiteUserDetail websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetail.class, "website_user");
         return ResponseDzz.ok(websiteUserDetail);
     }
 }

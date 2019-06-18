@@ -1,10 +1,10 @@
 package com.dzz.medical.service;
 
+import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.domain.bo.WebsiteUserDetail;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.domain.model.WebsiteUser;
-import com.dzz.medical.domain.vo.WebsiteUserListVo;
 
 /**
  * 注册用户接口
@@ -29,7 +29,7 @@ public interface WebsiteUserService {
      * @param param 查询条件
      * @return 结果
      */
-    ResponseDzz<WebsiteUserListVo> listWebsiteUser(ListWebsiteUserParamDto param);
+    ResponseDzz<PageUtil> listWebsiteUser(ListWebsiteUserParamDto param);
 
 
 
@@ -39,4 +39,12 @@ public interface WebsiteUserService {
      * @return 结果
      */
     ResponseDzz<WebsiteUserDetail> findWebsiteUserByName(String userName);
+
+
+    /**
+     * 根据用户名取用户信息
+     * @param userNo 用户编号
+     * @return 用户信息
+     */
+    ResponseDzz<WebsiteUserDetail> getUserByNo(String userNo);
 }

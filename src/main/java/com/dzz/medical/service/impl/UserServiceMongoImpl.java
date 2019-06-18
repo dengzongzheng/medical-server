@@ -28,7 +28,7 @@ public class UserServiceMongoImpl implements UserService {
     }
 
     @Override
-    public ResponseDzz<User> getUserByName(String userName) {
+    public ResponseDzz getUserByName(String userName) {
 
         Criteria criteria = Criteria.where("user_name").is(userName);
         Query query = new Query();
@@ -38,7 +38,7 @@ public class UserServiceMongoImpl implements UserService {
     }
 
     @Override
-    public ResponseDzz<Boolean> saveUser(User user) {
+    public ResponseDzz saveUser(User user) {
 
         mongoTemplate.save(user);
         return ResponseDzz.ok(Boolean.TRUE);
