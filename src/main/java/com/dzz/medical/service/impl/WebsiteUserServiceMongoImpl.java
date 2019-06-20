@@ -6,6 +6,7 @@ import com.dzz.medical.domain.bo.WebsiteUserDetail;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.domain.model.WebsiteUser;
 import com.dzz.medical.domain.vo.WebsiteUserListVo;
+import com.dzz.medical.service.IdService;
 import com.dzz.medical.service.WebsiteUserService;
 import com.google.common.base.Strings;
 import java.util.List;
@@ -27,6 +28,13 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
 
     private MongoTemplate mongoTemplate;
 
+    private IdService idService;
+
+    @Autowired
+    public void setIdService(IdService idService) {
+        this.idService = idService;
+    }
+
     @Autowired
     public void setMongoTemplate(MongoTemplate mongoTemplate) {
         this.mongoTemplate = mongoTemplate;
@@ -36,6 +44,7 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
     @Override
     public ResponseDzz saveWebsiteUser(WebsiteUser websiteUser) {
 
+        websiteUser.setUserNo(idService.getFormatId("us_"));
         mongoTemplate.save(websiteUser);
         return ResponseDzz.ok();
     }

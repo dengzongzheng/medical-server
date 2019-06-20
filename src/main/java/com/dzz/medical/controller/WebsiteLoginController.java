@@ -68,7 +68,7 @@ public class WebsiteLoginController {
         if(!UserAccountUtil.validatePassword(param.getUserName(), param.getPassword(), userDetail.getPassword())) {
             return ResponseDzz.fail("用户名或密码错误");
         }
-        return ResponseDzz.ok();
+        return ResponseDzz.ok(param.getUserName());
     }
 
 }

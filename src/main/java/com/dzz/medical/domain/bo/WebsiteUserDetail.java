@@ -21,11 +21,19 @@ public class WebsiteUserDetail implements Serializable {
     /**
      * 用户名
      */
+    /**
+     * 用户名
+     */
+    @Field("user_name")
     private String userName;
 
     /**
      * 密码
      */
+    /**
+     * 用户名
+     */
+    @Field("password")
     private String password;
 
 

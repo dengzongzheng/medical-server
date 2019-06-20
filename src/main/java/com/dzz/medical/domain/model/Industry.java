@@ -34,4 +34,17 @@ public class Industry implements Serializable {
     @Field("name")
     private String name;
 
+
+    /**
+     * 是否选择
+     */
+    @Field("select")
+    private Boolean select;
+
+
+    public Industry(Integer code, String name) {
+        this.code = code;
+        this.name = name;
+        this.select = false;
+    }
 }

@@ -33,6 +33,12 @@ public class Organization implements Serializable {
 
 
     /**
+     * 是否选择
+     */
+    @Field("select")
+    private Boolean select;
+
+    /**
      * 行业列表
      */
     @Field("industries")

@@ -52,6 +52,6 @@ public final class UserAccountUtil {
      */
     public static Boolean validatePassword(String userName, String password, String inputPassword) {
 
-        return encodePassword(userName, password).equals(encodePassword(userName, inputPassword));
+        return encodePassword(userName, password).equals(inputPassword);
     }
 }
