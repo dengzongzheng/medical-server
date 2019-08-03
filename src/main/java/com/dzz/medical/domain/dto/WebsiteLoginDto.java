@@ -3,7 +3,10 @@ package com.dzz.medical.domain.dto;
 import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
@@ -14,6 +17,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 2019年06月14 16:23
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class WebsiteLoginDto implements Serializable {
 
 

@@ -1,7 +1,10 @@
 package com.dzz.medical.domain.common;
 
 import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -13,6 +16,9 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ConstantBean implements Serializable {
 
     private static final long serialVersionUID = 7807213824619814045L;

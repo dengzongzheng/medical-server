@@ -3,7 +3,10 @@ package com.dzz.medical.domain.bo;
 import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
@@ -14,22 +17,21 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 2019年06月14 17:10
  */
 @Data
-public class WebsiteUserDetail implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class WebsiteUserDetailBo implements Serializable {
 
     private static final long serialVersionUID = -3048367671204602763L;
 
-    /**
-     * 用户名
-     */
+
     /**
      * 用户名
      */
     @Field("user_name")
     private String userName;
 
-    /**
-     * 密码
-     */
+
     /**
      * 用户名
      */

@@ -2,7 +2,9 @@ package com.dzz.medical.domain.model;
 
 import java.io.Serializable;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -15,6 +17,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Data
 @Document(collection = "question")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Question implements Serializable {
 
     private static final long serialVersionUID = 8261715108374567500L;

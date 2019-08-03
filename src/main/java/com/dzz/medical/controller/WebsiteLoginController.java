@@ -2,7 +2,7 @@ package com.dzz.medical.controller;
 
 import com.dzz.medical.common.codec.UserAccountUtil;
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.bo.WebsiteUserDetail;
+import com.dzz.medical.domain.bo.WebsiteUserDetailBo;
 import com.dzz.medical.domain.dto.LoginParamDto;
 import com.dzz.medical.domain.dto.WebsiteLoginDto;
 import com.dzz.medical.domain.tools.BeanConvertTools;
@@ -59,12 +59,12 @@ public class WebsiteLoginController {
         if(Strings.isNullOrEmpty(param.getUserName()) || Strings.isNullOrEmpty(param.getPassword())) {
             return ResponseDzz.fail("用户名密码不能为空");
         }
-        ResponseDzz<WebsiteUserDetail> userDetailResponseDzz = websiteUserService
+        ResponseDzz<WebsiteUserDetailBo> userDetailResponseDzz = websiteUserService
                 .findWebsiteUserByName(param.getUserName());
         if(userDetailResponseDzz.checkFail()||null==userDetailResponseDzz.getData()) {
             return ResponseDzz.fail("用户名或密码错误");
         }
-        WebsiteUserDetail userDetail = userDetailResponseDzz.getData();
+        WebsiteUserDetailBo userDetail = userDetailResponseDzz.getData();
         if(!UserAccountUtil.validatePassword(param.getUserName(), param.getPassword(), userDetail.getPassword())) {
             return ResponseDzz.fail("用户名或密码错误");
         }

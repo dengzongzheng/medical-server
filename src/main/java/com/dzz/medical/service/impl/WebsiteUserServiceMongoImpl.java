@@ -2,7 +2,7 @@ package com.dzz.medical.service.impl;
 
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.bo.WebsiteUserDetail;
+import com.dzz.medical.domain.bo.WebsiteUserDetailBo;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.domain.model.WebsiteUser;
 import com.dzz.medical.domain.vo.WebsiteUserListVo;
@@ -79,7 +79,7 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user_name").is(userName));
 
-        WebsiteUserDetail websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetail.class, "website_user");
+        WebsiteUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetailBo.class, "website_user");
         return ResponseDzz.ok(websiteUserDetail);
     }
 
@@ -88,7 +88,7 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("user_no").is(userNo));
-        WebsiteUserDetail websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetail.class, "website_user");
+        WebsiteUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetailBo.class, "website_user");
         return ResponseDzz.ok(websiteUserDetail);
     }
 }

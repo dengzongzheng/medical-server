@@ -1,7 +1,10 @@
 package com.dzz.medical.domain.model;
 
 import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -14,6 +17,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Data
 @Document(collection = "news")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class News {
     /**
      * 法律法规编码

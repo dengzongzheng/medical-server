@@ -4,7 +4,10 @@ import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,6 +19,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
  * @since 2019年06月14 17:09
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class WebsiteUserListVo implements Serializable {
 
     private static final long serialVersionUID = 3763140175234371060L;

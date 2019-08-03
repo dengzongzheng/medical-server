@@ -2,7 +2,7 @@ package com.dzz.medical.service;
 
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.bo.WebsiteUserDetail;
+import com.dzz.medical.domain.bo.WebsiteUserDetailBo;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.domain.model.WebsiteUser;
 
@@ -38,7 +38,7 @@ public interface WebsiteUserService {
      * @param userName 用户名
      * @return 结果
      */
-    ResponseDzz<WebsiteUserDetail> findWebsiteUserByName(String userName);
+    ResponseDzz<WebsiteUserDetailBo> findWebsiteUserByName(String userName);
 
 
     /**
@@ -46,5 +46,5 @@ public interface WebsiteUserService {
      * @param userNo 用户编号
      * @return 用户信息
      */
-    ResponseDzz<WebsiteUserDetail> getUserByNo(String userNo);
+    ResponseDzz<WebsiteUserDetailBo> getUserByNo(String userNo);
 }

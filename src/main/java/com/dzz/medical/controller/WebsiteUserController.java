@@ -2,7 +2,7 @@ package com.dzz.medical.controller;
 
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.bo.WebsiteUserDetail;
+import com.dzz.medical.domain.bo.WebsiteUserDetailBo;
 import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
 import com.dzz.medical.service.WebsiteUserService;
 import com.dzz.medical.service.impl.WebsiteUserServiceMongoImpl;
@@ -50,7 +50,7 @@ public class WebsiteUserController {
      * @return 结果
      */
     @GetMapping("/detail")
-    public ResponseDzz<WebsiteUserDetail> detail(@RequestParam("userNo") String userNo){
+    public ResponseDzz<WebsiteUserDetailBo> detail(@RequestParam("userNo") String userNo){
 
         return websiteUserService.getUserByNo(userNo);
     }

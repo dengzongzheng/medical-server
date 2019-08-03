@@ -1,8 +1,11 @@
 package com.dzz.medical.domain.model;
 
 import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,6 +19,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Document(collection = "answer_question")
+@AllArgsConstructor
+@NoArgsConstructor
 public class AnswerQuestion extends Question{
 
     private static final long serialVersionUID = 1535719132540944299L;

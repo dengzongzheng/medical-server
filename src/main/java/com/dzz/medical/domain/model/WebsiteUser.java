@@ -3,7 +3,9 @@ package com.dzz.medical.domain.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -17,6 +19,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
  */
 @Data
 @Document(collection = "website_user")
+@AllArgsConstructor
+@NoArgsConstructor
 public class WebsiteUser implements Serializable {
 
     private static final long serialVersionUID = -5326521964675727750L;
