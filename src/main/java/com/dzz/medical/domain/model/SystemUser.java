@@ -1,6 +1,6 @@
 package com.dzz.medical.domain.model;
 
-import java.util.Date;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,8 +21,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class SystemUser {
 
+    /**
+     * 用户编号
+     */
+    @Field("user_no")
+    @Indexed(unique = true)
+    private String userNo;
 
     /**
      * 用户名
@@ -43,16 +49,22 @@ public class User {
     @Field("status")
     private Integer status;
 
+    /**
+     * 所管理的组织机构信息
+     * @see com.dzz.medical.common.enums.OrganizationEnum code
+     */
+    @Field("organizations")
+    private List<Integer> organizations;
 
     /**
      * 创建时间
      */
     @Field("create_date")
-    private Date createDate;
+    private Long createDate;
 
     /**
      * 修改时间
      */
     @Field("update_date")
-    private Date updateDate;
+    private Long updateDate;
 }

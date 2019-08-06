@@ -12,7 +12,6 @@ import lombok.Data;
  * @since 2018年06月30 下午1:56
  */
 @Data
-@XmlRootElement
 public class ResponseDzz<T> implements Serializable {
 
     private static final long serialVersionUID = -5802418480250581704L;

@@ -1,4 +1,4 @@
-package com.dzz.medical.domain.bo;
+package com.dzz.medical.domain.dto;
 
 import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
@@ -10,32 +10,29 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 注册用户信息BO
+ * 登录DTO
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年06月14 17:10
+ * @since 2019年06月14 16:23
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WebsiteUserDetailBo implements Serializable {
+public class SuperviseUserRegisterParamDto implements Serializable {
 
-    private static final long serialVersionUID = -3048367671204602763L;
 
+    private static final long serialVersionUID = -5469770575230591848L;
 
     /**
      * 用户名
      */
-    @Field("user_name")
     private String userName;
 
-
     /**
-     * 用户名
+     * 密码
      */
-    @Field("password")
     private String password;
 
 

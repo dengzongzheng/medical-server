@@ -10,7 +10,10 @@ import java.util.Objects;
  * @since 2019年06月14 16:28
  */
 public enum  OrganizationEnum {
-
+    /**
+     * 被监管机构
+     */
+    ALL(0, "所有机构"),
     PUBLIC(1, "公共机构"),
     SCHOOL(2, "学校"),
     MEDICAL(3, "医疗机构"),

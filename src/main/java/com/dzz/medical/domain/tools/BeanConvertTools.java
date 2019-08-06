@@ -1,8 +1,8 @@
 package com.dzz.medical.domain.tools;
 
 import com.dzz.medical.common.codec.UserAccountUtil;
-import com.dzz.medical.domain.dto.WebsiteLoginDto;
-import com.dzz.medical.domain.model.WebsiteUser;
+import com.dzz.medical.domain.dto.SuperviseUserRegisterParamDto;
+import com.dzz.medical.domain.model.SuperviseUser;
 import java.util.Date;
 import org.springframework.beans.BeanUtils;
 
@@ -19,9 +19,9 @@ public class BeanConvertTools {
      * @param loginDto loginDto
      * @return WebsiteUser
      */
-    public static WebsiteUser convertToWebsiteUser(WebsiteLoginDto loginDto) {
+    public static SuperviseUser convertToWebsiteUser(SuperviseUserRegisterParamDto loginDto) {
 
-        WebsiteUser websiteUser = new WebsiteUser();
+        SuperviseUser websiteUser = new SuperviseUser();
         BeanUtils.copyProperties(loginDto, websiteUser);
         websiteUser.setPassword(UserAccountUtil.encodePassword(loginDto.getUserName(), loginDto.getPassword()));
         websiteUser.setUpdateTime(new Date());

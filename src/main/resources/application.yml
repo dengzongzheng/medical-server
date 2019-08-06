@@ -8,8 +8,8 @@ spring:
     active: prod
   servlet:
     multipart:
-      max-file-size: 50Mb
-      max-request-size: 20Mb
+      max-request-size: 20MB
+      max-file-size: 10MB
   data:
     mongodb:
       host: 127.0.0.1

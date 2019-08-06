@@ -11,6 +11,9 @@ import java.util.Objects;
  */
 public enum  CategoryEnum {
 
+    /**
+     * 分类信息
+     */
     WORKNEWS(1, "工作动态"),
     NOTICE(2, "通知公告"),
     LEGAL(3, "法律法规"),

@@ -1,30 +1,30 @@
-package com.dzz.medical.domain.model;
+package com.dzz.medical.domain.vo;
 
+import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 用户
+ * 注册用户列表VO
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年06月14 16:25
+ * @since 2019年06月14 17:09
  */
 @Data
-@Document(collection = "website_user")
 @AllArgsConstructor
 @NoArgsConstructor
-public class WebsiteUser implements Serializable {
+@Builder
+public class SuperviseUserListVo implements Serializable {
 
-    private static final long serialVersionUID = -5326521964675727750L;
-
+    private static final long serialVersionUID = 3763140175234371060L;
 
     /**
      * 用户名
@@ -143,11 +143,5 @@ public class WebsiteUser implements Serializable {
     @Field("create_time")
     private Date createTime;
 
-    /**
-     * 更新时间
-     */
-    @Field("update_time")
-    private Date updateTime;
 
 }
-

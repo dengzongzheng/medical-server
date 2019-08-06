@@ -11,6 +11,9 @@ import java.util.Objects;
  */
 public enum  SexEnum {
 
+    /**
+     * 性别枚举
+     */
     MALE(1, "男"),
     FEMALE(2, "女");
 

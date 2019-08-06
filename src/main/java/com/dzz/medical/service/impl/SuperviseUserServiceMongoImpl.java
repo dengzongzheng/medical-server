@@ -2,12 +2,12 @@ package com.dzz.medical.service.impl;
 
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.bo.WebsiteUserDetailBo;
-import com.dzz.medical.domain.dto.ListWebsiteUserParamDto;
-import com.dzz.medical.domain.model.WebsiteUser;
-import com.dzz.medical.domain.vo.WebsiteUserListVo;
+import com.dzz.medical.domain.bo.SuperviseUserDetailBo;
+import com.dzz.medical.domain.dto.SuperviseUserListParamDto;
+import com.dzz.medical.domain.model.SuperviseUser;
+import com.dzz.medical.domain.vo.SuperviseUserListVo;
 import com.dzz.medical.service.IdService;
-import com.dzz.medical.service.WebsiteUserService;
+import com.dzz.medical.service.SuperviseUserService;
 import com.google.common.base.Strings;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @since 2019年06月14 17:12
  */
 @Service
-public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
+public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
 
     private MongoTemplate mongoTemplate;
 
@@ -42,7 +42,7 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
 
 
     @Override
-    public ResponseDzz saveWebsiteUser(WebsiteUser websiteUser) {
+    public ResponseDzz saveWebsiteUser(SuperviseUser websiteUser) {
 
         websiteUser.setUserNo(idService.getFormatId("us_"));
         mongoTemplate.save(websiteUser);
@@ -50,10 +50,10 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
     }
 
     @Override
-    public ResponseDzz listWebsiteUser(ListWebsiteUserParamDto param) {
+    public ResponseDzz listWebsiteUser(SuperviseUserListParamDto param) {
 
 
-        PageUtil<WebsiteUserListVo> pageUtil = new PageUtil<>();
+        PageUtil<SuperviseUserListVo> pageUtil = new PageUtil<>();
         pageUtil.setPageSize(param.getPageSize());
         pageUtil.setPageNo(param.getPageNo());
         Query query = new Query();
@@ -64,10 +64,11 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
 
         query.addCriteria(criteria);
         query.limit(pageUtil.getPageSize());
-        List<WebsiteUserListVo> listVoList = mongoTemplate
-                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), WebsiteUserListVo.class, "website_user");
+        List<SuperviseUserListVo> listVoList = mongoTemplate
+                .find(query.skip((pageUtil.getPageNo() - 1) * pageUtil.getPageSize()), SuperviseUserListVo.class,
+                        COLLECTION_NAME);
         pageUtil.setData(listVoList);
-        long count = mongoTemplate.count(query, "website_user");
+        long count = mongoTemplate.count(query, COLLECTION_NAME);
         pageUtil.setTotalCount((int) count);
         pageUtil.setTotalPage();
         return ResponseDzz.ok(pageUtil);
@@ -79,7 +80,7 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user_name").is(userName));
 
-        WebsiteUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetailBo.class, "website_user");
+        SuperviseUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, SuperviseUserDetailBo.class, COLLECTION_NAME);
         return ResponseDzz.ok(websiteUserDetail);
     }
 
@@ -88,7 +89,8 @@ public class WebsiteUserServiceMongoImpl implements WebsiteUserService {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("user_no").is(userNo));
-        WebsiteUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, WebsiteUserDetailBo.class, "website_user");
+        SuperviseUserDetailBo websiteUserDetail = mongoTemplate
+                .findOne(query, SuperviseUserDetailBo.class, COLLECTION_NAME);
         return ResponseDzz.ok(websiteUserDetail);
     }
 }

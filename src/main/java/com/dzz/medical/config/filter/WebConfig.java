@@ -1,14 +1,13 @@
 package com.dzz.medical.config.filter;
 
 
-import javax.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * web 相关配置
@@ -17,19 +16,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @version 1.0.0
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig extends WebMvcConfigurationSupport {
 
-    /**
-     * 解决中文内容编码问题，统一用UTF-8编码
-     * @return 统一编码
-     */
-    @Bean
-    public Filter characterEncodingFilter() {
-        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
-        characterEncodingFilter.setEncoding("UTF-8");
-        characterEncodingFilter.setForceEncoding(true);
-        return characterEncodingFilter;
-    }
 
 
     /**
@@ -38,13 +26,19 @@ public class WebConfig extends WebMvcConfigurerAdapter {
      * @return 过滤器实体
      */
     @Bean
-    public FilterRegistrationBean simpleFilterRegistration(SimpleFilterService filterService) {
+    public FilterRegistrationBean simpleFilterRegistration(SimpleFilterServiceImpl filterService) {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setName("simpleFilter");
         registration.setFilter(new XssFilter(filterService));
         registration.addUrlPatterns("/*");
         return registration;
+    }
+
+    @Override
+    protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        super.addResourceHandlers(registry);
+        registry.addResourceHandler("classpath:/**");
     }
 
     @Bean

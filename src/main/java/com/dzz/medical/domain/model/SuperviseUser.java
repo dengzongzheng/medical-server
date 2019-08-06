@@ -1,38 +1,49 @@
-package com.dzz.medical.domain.dto;
+package com.dzz.medical.domain.model;
 
-import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 登录DTO
+ * 用户
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年06月14 16:23
+ * @since 2019年06月14 16:25
  */
 @Data
+@Document(collection = "supervise_user")
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class WebsiteLoginDto implements Serializable {
+public class SuperviseUser implements Serializable {
 
+    private static final long serialVersionUID = -5326521964675727750L;
 
-    private static final long serialVersionUID = -5469770575230591848L;
 
     /**
      * 用户名
      */
+    @Field("user_no")
+    @Indexed(unique = true)
+    private String userNo;
+
+    /**
+     * 用户名
+     */
+    @Field("user_name")
     private String userName;
+
 
     /**
      * 密码
      */
+    @Field("password")
     private String password;
 
 
@@ -125,4 +136,18 @@ public class WebsiteLoginDto implements Serializable {
      */
     @Field("manager_mobile")
     private String managerMobile;
+
+    /**
+     * 创建时间
+     */
+    @Field("create_time")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @Field("update_time")
+    private Date updateTime;
+
 }
+

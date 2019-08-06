@@ -1,37 +1,29 @@
-package com.dzz.medical.domain.vo;
+package com.dzz.medical.domain.bo;
 
 import com.dzz.medical.domain.model.Organization;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 /**
- * 注册用户列表VO
+ * 注册用户信息BO
  *
  * @author dzz
  * @version 1.0.0
- * @since 2019年06月14 17:09
+ * @since 2019年06月14 17:10
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class WebsiteUserListVo implements Serializable {
+public class SuperviseUserDetailBo implements Serializable {
 
-    private static final long serialVersionUID = 3763140175234371060L;
+    private static final long serialVersionUID = -3048367671204602763L;
 
-    /**
-     * 用户名
-     */
-    @Field("user_no")
-    @Indexed(unique = true)
-    private String userNo;
 
     /**
      * 用户名
@@ -41,7 +33,7 @@ public class WebsiteUserListVo implements Serializable {
 
 
     /**
-     * 密码
+     * 用户名
      */
     @Field("password")
     private String password;
@@ -136,12 +128,4 @@ public class WebsiteUserListVo implements Serializable {
      */
     @Field("manager_mobile")
     private String managerMobile;
-
-    /**
-     * 创建时间
-     */
-    @Field("create_time")
-    private Date createTime;
-
-
 }

@@ -12,8 +12,9 @@ package com.dzz.medical.config.filter;
 public interface IXssFilterService {
 
     /**
+     * 字符过滤
      * @param potentiallyDirtyParameter 参数
      * @return 转码
      */
-	 String filterString(final String potentiallyDirtyParameter);
+	 String filterString(String potentiallyDirtyParameter);
 }

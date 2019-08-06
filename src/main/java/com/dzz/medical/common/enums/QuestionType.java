@@ -10,6 +10,9 @@ import java.util.Objects;
  */
 public enum QuestionType {
 
+    /**
+     * 问题类型
+     */
     SELECT(1, "选择题"),
     FILL_IN_BLANK (2, "填空题");
 

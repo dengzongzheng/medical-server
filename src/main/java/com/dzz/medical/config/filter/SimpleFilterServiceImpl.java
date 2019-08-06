@@ -1,7 +1,7 @@
 
 package com.dzz.medical.config.filter;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.stereotype.Component;
 
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @version  1.0.0
  */
 @Component
-public class SimpleFilterService implements IXssFilterService {
+public class SimpleFilterServiceImpl implements IXssFilterService {
 
 	/**
 	 * 
