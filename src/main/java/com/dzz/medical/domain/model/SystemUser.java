@@ -56,6 +56,13 @@ public class SystemUser {
     @Field("organizations")
     private List<Integer> organizations;
 
+
+    /**
+     * 用户角色
+     */
+    @Field("roles")
+    private List<Role> roles;
+
     /**
      * 创建时间
      */

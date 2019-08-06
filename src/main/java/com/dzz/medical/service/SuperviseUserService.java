@@ -22,7 +22,7 @@ public interface SuperviseUserService {
      * @param websiteUser 注册用户信息
      * @return 结果
      */
-    ResponseDzz saveWebsiteUser(SuperviseUser websiteUser);
+    ResponseDzz saveSuperviseUser(SuperviseUser websiteUser);
 
 
     /**
@@ -30,7 +30,7 @@ public interface SuperviseUserService {
      * @param param 查询条件
      * @return 结果
      */
-    ResponseDzz<PageUtil> listWebsiteUser(SuperviseUserListParamDto param);
+    ResponseDzz<PageUtil> listSuperviseUser(SuperviseUserListParamDto param);
 
 
 
@@ -39,7 +39,7 @@ public interface SuperviseUserService {
      * @param userName 用户名
      * @return 结果
      */
-    ResponseDzz<SuperviseUserDetailBo> findWebsiteUserByName(String userName);
+    ResponseDzz<SuperviseUserDetailBo> getSuperviseUserByName(String userName);
 
 
     /**
@@ -47,5 +47,5 @@ public interface SuperviseUserService {
      * @param userNo 用户编号
      * @return 用户信息
      */
-    ResponseDzz<SuperviseUserDetailBo> getUserByNo(String userNo);
+    ResponseDzz<SuperviseUserDetailBo> getSuperviseUserByNo(String userNo);
 }

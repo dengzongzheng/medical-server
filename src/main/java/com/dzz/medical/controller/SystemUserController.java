@@ -4,16 +4,25 @@ import com.dzz.medical.common.bean.BeanTools;
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.config.exception.BusinessException;
+import com.dzz.medical.config.security.JwtTokenProvider;
 import com.dzz.medical.domain.bo.SystemUserBo;
 import com.dzz.medical.domain.dto.SystemUserListParamDto;
 import com.dzz.medical.domain.dto.SystemUserLoginParamDto;
 import com.dzz.medical.domain.dto.SystemUserSaveParamDto;
+import com.dzz.medical.domain.model.Role;
 import com.dzz.medical.domain.model.SystemUser;
 import com.dzz.medical.domain.model.UserLoginLog;
 import com.dzz.medical.service.SystemUserService;
 import com.dzz.medical.service.UserLoginLogService;
+import com.google.common.collect.Lists;
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +47,15 @@ public class SystemUserController extends BaseController{
     private SystemUserService systemUserService;
 
     private UserLoginLogService loginLogService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     public void setSystemUserService(SystemUserService systemUserService) {
@@ -65,12 +83,32 @@ public class SystemUserController extends BaseController{
             throw new BusinessException("用户名或密码错误");
         }
         SystemUser user = responseDzz.getData();
-        if(!user.getPassword().equals(param.getPassword())) {
+        log.info("取一下密码:{}",passwordEncoder.encode(param.getPassword()));
+        try {
+            authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(param.getUserName(), param.getPassword()));
+            loginLogService.save(UserLoginLog.builder().userName(user.getUserName()).userNo(user.getUserNo())
+                    .loginTime(System.currentTimeMillis()).build());
+            return ResponseDzz.ok(jwtTokenProvider.createToken(user.getUserName(), Lists.newArrayList(new Role("ROLE_ADMIN"))));
+        } catch (AuthenticationException e) {
             throw new BusinessException("用户名或密码错误");
         }
-        loginLogService.save(UserLoginLog.builder().userName(user.getUserName()).userNo(user.getUserNo())
-                .loginTime(System.currentTimeMillis()).build());
-        return ResponseDzz.ok(param.getUserName());
+    }
+
+    /**
+     * 用户登录
+     * @param request request
+     * @return 登录结果
+     */
+    @GetMapping("/refresh")
+    public ResponseDzz refresh(HttpServletRequest request) {
+
+        String userName =request.getRemoteUser();
+        ResponseDzz<SystemUser> responseDzz = systemUserService.getUserByName(userName);
+        if(responseDzz.checkFail() || null == responseDzz.getData()) {
+            throw new BusinessException("用户不存在");
+        }
+        return ResponseDzz.ok(jwtTokenProvider.createToken(userName, responseDzz.getData().getRoles()));
     }
 
     /**
@@ -82,6 +120,7 @@ public class SystemUserController extends BaseController{
 
         log.info("接收到的数据为:{}", param.toString());
         bindResultHandler(bindingResult);
+        param.setPassword(passwordEncoder.encode(param.getPassword()));
         return systemUserService.saveUser(BeanTools.convertToSystemUser(param));
     }
 
@@ -104,6 +143,7 @@ public class SystemUserController extends BaseController{
      * @return 结果
      */
     @GetMapping("/detailUser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseDzz<SystemUserBo> detailUser(@RequestParam("userNo") String userNo){
 
         return systemUserService.getUserByNo(userNo);

@@ -1,1 +1,91 @@
-package com.dzz.medical.config.security;import java.io.UnsupportedEncodingException;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;import org.springframework.security.config.annotation.web.builders.HttpSecurity;import org.springframework.security.config.annotation.web.builders.WebSecurity;import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;import org.springframework.security.config.http.SessionCreationPolicy;import org.springframework.security.core.userdetails.UserDetailsService;import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;/** * WebSecurity访问控制配置 * @author dzz * @since  2017年04月20 上午7:12 * @version  1.0.0 */@Configuration@EnableWebSecurity@EnableGlobalMethodSecurity(prePostEnabled = true)public class WebSecurityConfig extends WebSecurityConfigurerAdapter {    @Override    protected void configure(HttpSecurity httpSecurity) throws Exception {        httpSecurity                .csrf().disable()                .cors().and()                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()                .authorizeRequests()                .antMatchers("/api/**","/manage/**","1.png","/file/*","/wx/**").permitAll()                .anyRequest().authenticated()                .and()                .formLogin()                .loginProcessingUrl("/api/login")                .usernameParameter("userName")                .passwordParameter("password")                .permitAll()                .successHandler(getCustomizeAuthenticationSuccessHandler())                .failureHandler(getCustomizeAuthenticationFailureHandler())                .and()                .logout()                .logoutSuccessHandler(getCustomizeLogoutSuccessHandler())                .permitAll()                .and()                .addFilterBefore(getCustomizeTokenAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);        httpSecurity.headers().cacheControl().disable()                .and().logout().permitAll()                .and().exceptionHandling().accessDeniedHandler(getCustomizeAccessDeniedHandler())                .authenticationEntryPoint(getCustomizeAuthenticationEntryPoint());    }    @Override    public void configure(WebSecurity web) throws Exception {		web.ignoring().antMatchers("/js/**", "/plugins/**", "/fonts/**",				"/css/**", "/images/**", "/img/**", "/**/favicon.ico","*.map");	}    @Override    protected void configure(AuthenticationManagerBuilder auth) throws Exception {        auth.authenticationProvider(getCustomizeAuthenticationProvider());    }    @Bean    public UserDetailsService customUserDetailsService(){        return new CustomizeUserDetailsServiceImpl();    }    @Bean    public CustomizeAuthenticationProvider getCustomizeAuthenticationProvider() {        return new CustomizeAuthenticationProvider();    }    @Bean    public CustomizeAccessDeniedHandler getCustomizeAccessDeniedHandler() {        return new CustomizeAccessDeniedHandler();    }    @Bean    public CustomizeAuthenticationFailureHandler getCustomizeAuthenticationFailureHandler() {        return new CustomizeAuthenticationFailureHandler();    }    @Bean    public CustomizeAuthenticationSuccessHandler getCustomizeAuthenticationSuccessHandler() {        return new CustomizeAuthenticationSuccessHandler();    }    @Bean    public CustomizeAuthenticationEntryPoint getCustomizeAuthenticationEntryPoint() {        return new CustomizeAuthenticationEntryPoint();    }    @Bean    public CustomizeLogoutSuccessHandler getCustomizeLogoutSuccessHandler() {        return new CustomizeLogoutSuccessHandler();    }    @Bean    public CustomizeTokenAuthorizationFilter getCustomizeTokenAuthorizationFilter()            throws UnsupportedEncodingException {        TokenUtils tokenUtils = new TokenUtils();        return new CustomizeTokenAuthorizationFilter(tokenUtils);    }}
+package com.dzz.medical.config.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+/**
+ * 用户信息
+ *
+ * @author dzz
+ * @version 1.0.0
+ * @since 2019年05月28 20:51
+ */
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        // Disable CSRF (cross site request forgery)
+        http.csrf().disable();
+
+        // No session will be created or used by spring security
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // Entry points
+        http.authorizeRequests()//
+            .antMatchers("/api/system/login","/api/system/logout","/api/supervise/login","/api/supervise/logout").permitAll()
+            // Disallow everything else..
+            .anyRequest().authenticated();
+
+        // If a user try to access a resource without having enough permissions
+        http.exceptionHandling().authenticationEntryPoint(getCustomizeAuthenticationEntryPoint());
+
+        // Apply JWT
+        http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
+
+        // Optional, if you want to test the API from a browser
+        // http.httpBasic();
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+      // Allow swagger to be accessed without authentication
+        web.ignoring().antMatchers("/v2/api-docs")
+            .antMatchers("/swagger-resources/**")
+            .antMatchers("/swagger-ui.html")
+            .antMatchers("/configuration/**")
+            .antMatchers("/webjars/**")
+            .antMatchers("/public")
+            // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
+            .and()
+            .ignoring()
+            .antMatchers("/h2-console/**/**");;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder(12);
+    }
+
+
+
+    @Override
+    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public CustomizeAuthenticationEntryPoint getCustomizeAuthenticationEntryPoint() {
+        return new CustomizeAuthenticationEntryPoint();
+    }
+
+}

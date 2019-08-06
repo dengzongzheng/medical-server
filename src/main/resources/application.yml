@@ -23,3 +23,9 @@ file:
     path: /data/files/
   server:
     path: http://img.sswjjd.cn/
+
+security:
+  jwt:
+    token:
+      secret-key: secret-key
+      expire-length: 300000 # 默认5分钟过期时间,单位毫秒。  300000 = 5 * 60  * 1000

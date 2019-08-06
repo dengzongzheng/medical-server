@@ -50,7 +50,7 @@ public class SuperviseUserController extends BaseController{
     public ResponseDzz register(@RequestBody SuperviseUserRegisterParamDto param) {
 
         log.info("接收到的数据为:{}", param.toString());
-        return superviseUserService.saveWebsiteUser(BeanConvertTools.convertToWebsiteUser(param));
+        return superviseUserService.saveSuperviseUser(BeanConvertTools.convertToWebsiteUser(param));
     }
 
 
@@ -65,7 +65,7 @@ public class SuperviseUserController extends BaseController{
 
         bindResultHandler(bindingResult);
         ResponseDzz<SuperviseUserDetailBo> userDetailResponseDzz = superviseUserService
-                .findWebsiteUserByName(param.getUserName());
+                .getSuperviseUserByName(param.getUserName());
         if(userDetailResponseDzz.checkFail()||null==userDetailResponseDzz.getData()) {
             throw new BusinessException("用户名或密码错误");
         }
@@ -84,7 +84,7 @@ public class SuperviseUserController extends BaseController{
     @GetMapping("/listUsers")
     public ResponseDzz<PageUtil> listUsers(SuperviseUserListParamDto param){
 
-        return superviseUserService.listWebsiteUser(param);
+        return superviseUserService.listSuperviseUser(param);
     }
 
 
@@ -96,6 +96,6 @@ public class SuperviseUserController extends BaseController{
     @GetMapping("/detail")
     public ResponseDzz<SuperviseUserDetailBo> detail(@RequestParam("userNo") String userNo){
 
-        return superviseUserService.getUserByNo(userNo);
+        return superviseUserService.getSuperviseUserByNo(userNo);
     }
 }

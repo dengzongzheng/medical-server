@@ -42,7 +42,7 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
 
 
     @Override
-    public ResponseDzz saveWebsiteUser(SuperviseUser websiteUser) {
+    public ResponseDzz saveSuperviseUser(SuperviseUser websiteUser) {
 
         websiteUser.setUserNo(idService.getFormatId("us_"));
         mongoTemplate.save(websiteUser);
@@ -50,7 +50,7 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     }
 
     @Override
-    public ResponseDzz listWebsiteUser(SuperviseUserListParamDto param) {
+    public ResponseDzz listSuperviseUser(SuperviseUserListParamDto param) {
 
 
         PageUtil<SuperviseUserListVo> pageUtil = new PageUtil<>();
@@ -75,7 +75,7 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     }
 
     @Override
-    public ResponseDzz findWebsiteUserByName(String userName) {
+    public ResponseDzz getSuperviseUserByName(String userName) {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("user_name").is(userName));
@@ -85,7 +85,7 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     }
 
     @Override
-    public ResponseDzz getUserByNo(String userNo) {
+    public ResponseDzz getSuperviseUserByNo(String userNo) {
 
         Query query = new Query();
         query.addCriteria(Criteria.where("user_no").is(userNo));

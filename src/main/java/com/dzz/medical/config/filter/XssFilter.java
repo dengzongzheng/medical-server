@@ -32,14 +32,16 @@ public class XssFilter implements Filter {
 
 	}
 
-	@Override
-	public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain) throws IOException, ServletException {
-		if (request instanceof HttpServletRequest) {
-		    chain.doFilter(new CleanServletRequest((HttpServletRequest) request, this.filterService), response);
-		} else {
-			chain.doFilter(request, response);
-		}
-	}
+    @Override
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+
+        if(request instanceof HttpServletRequest) {
+            chain.doFilter(new CleanServletRequest((HttpServletRequest) request, this.filterService), response);
+        }else {
+            chain.doFilter(request, response);
+        }
+    }
 
 	@Override
 	public void init(final FilterConfig filterConfig) throws ServletException {

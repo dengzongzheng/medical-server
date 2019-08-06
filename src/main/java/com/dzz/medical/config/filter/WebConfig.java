@@ -28,7 +28,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
     @Bean
     public FilterRegistrationBean simpleFilterRegistration(SimpleFilterServiceImpl filterService) {
 
-        FilterRegistrationBean registration = new FilterRegistrationBean();
+        FilterRegistrationBean<XssFilter> registration = new FilterRegistrationBean<>();
         registration.setName("simpleFilter");
         registration.setFilter(new XssFilter(filterService));
         registration.addUrlPatterns("/*");
