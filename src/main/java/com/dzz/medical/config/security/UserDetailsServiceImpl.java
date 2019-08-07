@@ -1,9 +1,9 @@
 package com.dzz.medical.config.security;
 
 import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.domain.model.Role;
-import com.dzz.medical.domain.model.SystemUser;
-import com.dzz.medical.service.UserService;
+import com.dzz.medical.system.domain.model.Role;
+import com.dzz.medical.system.domain.model.SystemUser;
+import com.dzz.medical.util.service.UserService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

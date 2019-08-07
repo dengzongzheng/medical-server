@@ -3,7 +3,7 @@ package com.dzz.medical.common.file;
 import com.alibaba.fastjson.JSONObject;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.config.common.UtilConfig;
-import com.dzz.medical.service.IdService;
+import com.dzz.medical.util.service.IdService;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

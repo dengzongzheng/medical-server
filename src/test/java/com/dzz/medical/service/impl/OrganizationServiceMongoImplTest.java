@@ -1,8 +1,9 @@
 package com.dzz.medical.service.impl;
 
 import com.dzz.medical.common.enums.OrganizationEnum;
-import com.dzz.medical.domain.model.Industry;
-import com.dzz.medical.domain.model.Organization;
+import com.dzz.medical.supervise.domain.model.Industry;
+import com.dzz.medical.supervise.domain.model.Organization;
+import com.dzz.medical.supervise.service.impl.OrganizationServiceMongoImpl;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 package com.dzz.medical.common.enums;
 
-import com.dzz.medical.domain.common.ConstantBean;
+import com.dzz.medical.util.common.bean.ConstantBean;
 import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.Objects;

@@ -1,7 +1,7 @@
 package com.dzz.medical.common.bean;
 
-import com.dzz.medical.domain.dto.SystemUserSaveParamDto;
-import com.dzz.medical.domain.model.SystemUser;
+import com.dzz.medical.system.domain.dto.SystemUserSaveParamDto;
+import com.dzz.medical.system.domain.model.SystemUser;
 import org.springframework.beans.BeanUtils;
 
 /**

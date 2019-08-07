@@ -1,7 +1,8 @@
 package com.dzz.medical.service.impl;
 
 import com.dzz.medical.config.wx.WxConfig;
-import com.dzz.medical.service.WxService;
+import com.dzz.medical.util.service.WxService;
+import com.dzz.medical.util.service.impl.WxServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

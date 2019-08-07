@@ -1,7 +1,7 @@
 package com.dzz.medical.config.security;
 
 import com.dzz.medical.config.exception.BusinessException;
-import com.dzz.medical.domain.model.Role;
+import com.dzz.medical.system.domain.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
