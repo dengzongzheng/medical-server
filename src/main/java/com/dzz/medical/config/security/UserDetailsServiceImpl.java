@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
  * @since 2019年05月28 20:51
  */
 @Service
-public class MyUserDetails implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
 
     private UserService userService;
@@ -41,7 +41,7 @@ public class MyUserDetails implements UserDetailsService {
         return org.springframework.security.core.userdetails.User
                 .withUsername(username)
                 .password(responseDzz.getData().getPassword())
-                .authorities(Lists.newArrayList(new Role("ROLE_ADMIN")))
+                .authorities(Lists.newArrayList(new Role("ADMIN")))
                 .accountExpired(false)
                 .accountLocked(false)
                 .credentialsExpired(false)

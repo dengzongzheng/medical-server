@@ -16,7 +16,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
  * @version 1.0.0
  * @since 2019年08月06 17:05
  */
-public class CustomizeAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response,

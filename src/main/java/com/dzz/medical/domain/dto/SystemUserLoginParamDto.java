@@ -1,5 +1,7 @@
 package com.dzz.medical.domain.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -18,6 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ApiModel(description = "系统用户登录入参")
 public class SystemUserLoginParamDto implements Serializable {
 
     private static final long serialVersionUID = -2978260295967439819L;
@@ -26,11 +29,13 @@ public class SystemUserLoginParamDto implements Serializable {
      * 用户名
      */
     @NotBlank(message = "用户名不能为空")
+    @ApiModelProperty(value = "用户名", required = true)
     private String userName;
 
     /**
      * 密码
      */
     @NotBlank(message = "密码不能为空")
+    @ApiModelProperty(value = "密码", required = true)
     private String password;
 }

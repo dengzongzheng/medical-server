@@ -15,6 +15,9 @@ import com.dzz.medical.domain.model.UserLoginLog;
 import com.dzz.medical.service.SystemUserService;
 import com.dzz.medical.service.UserLoginLogService;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/system")
+@Api(value = "系统用户管理", tags = "系统用户管理")
 @Slf4j
 public class SystemUserController extends BaseController{
 
@@ -75,6 +79,7 @@ public class SystemUserController extends BaseController{
      * @return 登录结果
      */
     @PostMapping("/login")
+    @ApiOperation(value = "系统用户登录", notes = "备注说明")
     public ResponseDzz login(@RequestBody @Validated SystemUserLoginParamDto param, BindingResult bindingResult) {
 
         bindResultHandler(bindingResult);
@@ -89,18 +94,19 @@ public class SystemUserController extends BaseController{
                     .authenticate(new UsernamePasswordAuthenticationToken(param.getUserName(), param.getPassword()));
             loginLogService.save(UserLoginLog.builder().userName(user.getUserName()).userNo(user.getUserNo())
                     .loginTime(System.currentTimeMillis()).build());
-            return ResponseDzz.ok(jwtTokenProvider.createToken(user.getUserName(), Lists.newArrayList(new Role("ROLE_ADMIN"))));
+            return ResponseDzz.ok(jwtTokenProvider.createToken(user.getUserName(), Lists.newArrayList(new Role("ADMIN"))));
         } catch (AuthenticationException e) {
             throw new BusinessException("用户名或密码错误");
         }
     }
 
     /**
-     * 用户登录
+     * 用户刷新
      * @param request request
-     * @return 登录结果
+     * @return 用户刷新结果
      */
     @GetMapping("/refresh")
+    @ApiOperation(value = "用户刷新", notes = "备注说明")
     public ResponseDzz refresh(HttpServletRequest request) {
 
         String userName =request.getRemoteUser();
@@ -115,6 +121,7 @@ public class SystemUserController extends BaseController{
      * 系统用户添加
      * @return 结果
      */
+    @ApiOperation(value = "系统用户添加", notes = "备注说明")
     @PostMapping("/saveUser")
     public ResponseDzz saveUser(@RequestBody @Validated SystemUserSaveParamDto param,BindingResult bindingResult) {
 
@@ -130,6 +137,7 @@ public class SystemUserController extends BaseController{
      * @return 结果
      */
     @GetMapping("/listUsers")
+    @ApiOperation(value = "列表查询", notes = "备注说明")
     public ResponseDzz<PageUtil> listUsers(SystemUserListParamDto param){
         log.info("接收到的数据为:{}", param.toString());
 
@@ -143,7 +151,9 @@ public class SystemUserController extends BaseController{
      * @return 结果
      */
     @GetMapping("/detailUser")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @ApiOperation(value = "获取系统用户详细信息", notes = "备注说明")
+    @ApiImplicitParam(name = "userNo", value = "用户编号", required = true, dataType = "String", paramType = "query")
     public ResponseDzz<SystemUserBo> detailUser(@RequestParam("userNo") String userNo){
 
         return systemUserService.getUserByNo(userNo);

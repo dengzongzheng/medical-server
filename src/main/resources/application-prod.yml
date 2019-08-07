@@ -1,3 +1,5 @@
+swagger:
+  enable: true
 wx:
   appId: wxf0fadcef4aa450c5
   appSecret: b9c38a16063e8031f4f5dd58af47c405

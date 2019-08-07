@@ -11,6 +11,7 @@ import com.dzz.medical.domain.dto.SuperviseUserRegisterParamDto;
 import com.dzz.medical.domain.tools.BeanConvertTools;
 import com.dzz.medical.service.SuperviseUserService;
 import com.dzz.medical.service.impl.SuperviseUserServiceMongoImpl;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/supervise")
+@Api(value = "监督用户管理", tags = "2、监督用户管理")
 @Slf4j
 public class SuperviseUserController extends BaseController{
 

@@ -1,8 +1,8 @@
 package com.dzz.medical.common.response;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import javax.xml.bind.annotation.XmlRootElement;
-import lombok.Data;
 
 /**
  * 影响实体
@@ -11,7 +11,7 @@ import lombok.Data;
  * @version 1.0.0
  * @since 2018年06月30 下午1:56
  */
-@Data
+@ApiModel(description = "响应信息封装")
 public class ResponseDzz<T> implements Serializable {
 
     private static final long serialVersionUID = -5802418480250581704L;
@@ -27,18 +27,21 @@ public class ResponseDzz<T> implements Serializable {
     /**
      * 标志码1:成功,0:失败
      */
+    @ApiModelProperty(value = "标志码", required = true,notes = "1:成功,0:失败")
     private String code;
 
 
     /**
      * 说明
      */
+    @ApiModelProperty(value = "说明", required = true)
     private String message;
 
 
     /**
      * 数据
      */
+    @ApiModelProperty(value = "数据")
     private T data;
 
     public ResponseDzz() {
@@ -82,7 +85,7 @@ public class ResponseDzz<T> implements Serializable {
      * @return 成功与否
      */
     public Boolean isSuccess() {
-        return SUCCESS_CODE.equals(this.getCode());
+        return SUCCESS_CODE.equals(this.code);
     }
 
     /**
@@ -122,4 +125,27 @@ public class ResponseDzz<T> implements Serializable {
         return this.code.equals(FAIL_CODE);
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
 }

@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .anyRequest().authenticated();
 
         // If a user try to access a resource without having enough permissions
-        http.exceptionHandling().authenticationEntryPoint(getCustomizeAuthenticationEntryPoint());
+        http.exceptionHandling().authenticationEntryPoint(getAuthenticationEntryPoint());
 
         // Apply JWT
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider));
@@ -84,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CustomizeAuthenticationEntryPoint getCustomizeAuthenticationEntryPoint() {
-        return new CustomizeAuthenticationEntryPoint();
+    public AuthenticationEntryPointImpl getAuthenticationEntryPoint() {
+        return new AuthenticationEntryPointImpl();
     }
 
 }

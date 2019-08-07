@@ -37,8 +37,16 @@ public class WebConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/templates/**")
+                .addResourceLocations("classpath:/templates/");
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("classpath:/**");
+
     }
 
     @Bean

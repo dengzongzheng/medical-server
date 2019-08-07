@@ -9,10 +9,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +30,7 @@ import org.springframework.stereotype.Component;
  * @since 2019年04月23 20:35
  */
 @Component
+@Slf4j
 public class JwtTokenProvider {
 
     /**
@@ -44,7 +45,7 @@ public class JwtTokenProvider {
     private long validityInMilliseconds = 3600000;
 
     @Autowired
-    private MyUserDetails myUserDetails;
+    private UserDetailsServiceImpl myUserDetails;
 
     @PostConstruct
     protected void init() {
@@ -56,8 +57,7 @@ public class JwtTokenProvider {
 
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("auth",
-                roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).filter(Objects::nonNull)
-                        .collect(Collectors.toList()));
+                roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority())).collect(Collectors.toList()));
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -97,6 +97,7 @@ public class JwtTokenProvider {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         }catch(JwtException | IllegalArgumentException e) {
+            log.error("token 不合法或过期", e);
             throw new BusinessException("expired or invalid jwt token");
         }
     }
