@@ -1,52 +1,32 @@
 package com.dzz.medical.config.security;
 
-import com.dzz.medical.common.response.ResponseDzz;
-import com.dzz.medical.system.domain.model.Role;
-import com.dzz.medical.system.domain.model.SystemUser;
-import com.dzz.medical.util.service.UserService;
-import com.google.common.collect.Lists;
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
- * 用户信息
- *
+ * 用户接口实现
  * @author dzz
  * @version 1.0.0
- * @since 2019年05月28 20:51
+ * @since 2019年08月08 11:28
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 
-    private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        ResponseDzz<SystemUser> responseDzz = userService.getSystemUserByName(username);
-
-        if(responseDzz.checkFail() || null == responseDzz.getData()) {
-            throw new UsernameNotFoundException("User '" + username + "' not found");
-        }
-
-        return org.springframework.security.core.userdetails.User
-                .withUsername(username)
-                .password(responseDzz.getData().getPassword())
-                .authorities(Lists.newArrayList(new Role("ADMIN")))
-                .accountExpired(false)
-                .accountLocked(false)
-                .credentialsExpired(false)
-                .disabled(false)
-                .build();
+        return User.builder().username("dzz1").password(passwordEncoder.encode("123456"))
+                .authorities(Arrays.asList(new Authority("test"),new Authority("abc"))).build();
     }
-
 }

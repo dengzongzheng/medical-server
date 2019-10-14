@@ -3,7 +3,7 @@ package com.dzz.medical.supervise.service;
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.supervise.domain.bo.SuperviseUserDetailBo;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserListParamDto;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserListParam;
 import com.dzz.medical.supervise.domain.model.SuperviseUser;
 
 /**
@@ -30,7 +30,7 @@ public interface SuperviseUserService {
      * @param param 查询条件
      * @return 结果
      */
-    ResponseDzz<PageUtil> listSuperviseUser(SuperviseUserListParamDto param);
+    ResponseDzz<PageUtil> listSuperviseUser(SuperviseUserListParam param);
 
 
 

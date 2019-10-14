@@ -4,7 +4,7 @@ package com.dzz.medical.system.service.impl;
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.system.domain.bo.SystemUserBo;
-import com.dzz.medical.system.domain.dto.SystemUserListParamDto;
+import com.dzz.medical.system.domain.dto.SystemUserListParam;
 import com.dzz.medical.system.domain.model.SystemUser;
 import com.dzz.medical.util.service.IdService;
 import com.dzz.medical.system.service.SystemUserService;
@@ -59,7 +59,7 @@ public class SystemUserServiceMongoImpl implements SystemUserService {
     }
 
     @Override
-    public ResponseDzz<PageUtil> listSystemUser(SystemUserListParamDto param) {
+    public ResponseDzz<PageUtil> listSystemUser(SystemUserListParam param) {
 
         PageUtil<SystemUserBo> pageUtil = new PageUtil<>();
         pageUtil.setPageSize(param.getPageSize());

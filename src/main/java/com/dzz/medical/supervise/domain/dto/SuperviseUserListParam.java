@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SuperviseUserListParamDto implements Serializable {
+public class SuperviseUserListParam implements Serializable {
 
     private static final long serialVersionUID = 4381798040022496457L;
 

@@ -1,7 +1,7 @@
 package com.dzz.medical.common.bean;
 
 import com.dzz.medical.common.codec.UserAccountUtil;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserRegisterParamDto;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserRegisterParam;
 import com.dzz.medical.supervise.domain.model.SuperviseUser;
 import java.util.Date;
 import org.springframework.beans.BeanUtils;
@@ -19,7 +19,7 @@ public class BeanConvertTools {
      * @param loginDto loginDto
      * @return WebsiteUser
      */
-    public static SuperviseUser convertToWebsiteUser(SuperviseUserRegisterParamDto loginDto) {
+    public static SuperviseUser convertToWebsiteUser(SuperviseUserRegisterParam loginDto) {
 
         SuperviseUser websiteUser = new SuperviseUser();
         BeanUtils.copyProperties(loginDto, websiteUser);

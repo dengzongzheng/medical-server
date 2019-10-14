@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @version 1.0.0
  * @since 2018年06月30 下午1:56
  */
+@SuppressWarnings("ALL")
 @ApiModel(description = "响应信息封装")
 public class ResponseDzz<T> implements Serializable {
 

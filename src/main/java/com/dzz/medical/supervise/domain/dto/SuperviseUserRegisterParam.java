@@ -20,7 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SuperviseUserRegisterParamDto implements Serializable {
+public class SuperviseUserRegisterParam implements Serializable {
 
 
     private static final long serialVersionUID = -5469770575230591848L;

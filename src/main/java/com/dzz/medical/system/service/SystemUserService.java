@@ -4,7 +4,7 @@ package com.dzz.medical.system.service;
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.system.domain.bo.SystemUserBo;
-import com.dzz.medical.system.domain.dto.SystemUserListParamDto;
+import com.dzz.medical.system.domain.dto.SystemUserListParam;
 import com.dzz.medical.system.domain.model.SystemUser;
 
 /**
@@ -39,7 +39,7 @@ public interface SystemUserService {
      * @param param 查询条件
      * @return 结果
      */
-    ResponseDzz<PageUtil> listSystemUser(SystemUserListParamDto param);
+    ResponseDzz<PageUtil> listSystemUser(SystemUserListParam param);
 
 
     /**

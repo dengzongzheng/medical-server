@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2018年06月30 下午2:47
  */
 @Slf4j
+@SuppressWarnings("ALL")
 public class HttpsService {
 	
 
@@ -60,13 +62,13 @@ public class HttpsService {
 			if (null != data) {
 				OutputStream outputStream = httpsUrlConn.getOutputStream();
 				// 注意编码格式, 防止中文乱码
-				outputStream.write(data.getBytes("UTF-8"));
+				outputStream.write(data.getBytes(StandardCharsets.UTF_8));
 				outputStream.close();
 			}
 
 			// 将返回的输入流转换成字符串
 			InputStream inputStream = httpsUrlConn.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
 			String str = null;

@@ -21,6 +21,4 @@ public class UtilConfig {
     @Value("${file.server.path}")
     private String imageServerPath;
 
-
-
 }

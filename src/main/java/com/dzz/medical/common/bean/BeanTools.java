@@ -1,6 +1,6 @@
 package com.dzz.medical.common.bean;
 
-import com.dzz.medical.system.domain.dto.SystemUserSaveParamDto;
+import com.dzz.medical.system.domain.dto.SystemUserSaveParam;
 import com.dzz.medical.system.domain.model.SystemUser;
 import org.springframework.beans.BeanUtils;
 
@@ -18,7 +18,7 @@ public class BeanTools {
      * @param param param
      * @return 结果
      */
-    public static SystemUser convertToSystemUser(SystemUserSaveParamDto param) {
+    public static SystemUser convertToSystemUser(SystemUserSaveParam param) {
 
         SystemUser systemUser = new SystemUser();
         BeanUtils.copyProperties(param, systemUser);

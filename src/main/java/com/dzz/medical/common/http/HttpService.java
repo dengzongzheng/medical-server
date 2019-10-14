@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2018年06月30 下午2:47
  */
 @Slf4j
+@SuppressWarnings("ALL")
 public class HttpService {
 	
 
@@ -65,16 +67,16 @@ public class HttpService {
 				// 此处getOutputStream会隐含的进行connect(即: 如同调用上面的connect()方法, 所以在开发中不调用上述的connect()也可以)
 				OutputStream outputStream = httpUrlConn.getOutputStream();
 				// 注意编码格式, 防止中文乱码
-				outputStream.write(outputStr.getBytes("UTF-8"));
+				outputStream.write(outputStr.getBytes(StandardCharsets.UTF_8));
 				outputStream.close();
 			}
 
 			// 将返回的输入流转换成字符串
 			InputStream inputStream = httpUrlConn.getInputStream();
-			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
 			BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-			String str = null;
+			String str;
 			while ((str = bufferedReader.readLine()) != null) {
 				buffer.append(str);
 			}
@@ -91,8 +93,8 @@ public class HttpService {
 		} catch (ConnectException ce) {
 			log.error("Remote server connection timed out. ");
 		} catch (Exception e) {
-			log.error("Http request error: {}", e);
+			log.error("Http request error:", e);
 		}
-		return null;
+        return null;
 	}
 }

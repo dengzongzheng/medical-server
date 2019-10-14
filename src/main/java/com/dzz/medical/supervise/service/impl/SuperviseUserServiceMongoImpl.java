@@ -3,7 +3,7 @@ package com.dzz.medical.supervise.service.impl;
 import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.supervise.domain.bo.SuperviseUserDetailBo;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserListParamDto;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserListParam;
 import com.dzz.medical.supervise.domain.model.SuperviseUser;
 import com.dzz.medical.supervise.domain.vo.SuperviseUserListVo;
 import com.dzz.medical.util.service.IdService;
@@ -50,7 +50,7 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     }
 
     @Override
-    public ResponseDzz listSuperviseUser(SuperviseUserListParamDto param) {
+    public ResponseDzz listSuperviseUser(SuperviseUserListParam param) {
 
 
         PageUtil<SuperviseUserListVo> pageUtil = new PageUtil<>();

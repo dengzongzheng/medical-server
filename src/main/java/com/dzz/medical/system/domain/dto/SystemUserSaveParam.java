@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "系统用户保存入参")
-public class SystemUserSaveParamDto implements Serializable {
+public class SystemUserSaveParam implements Serializable {
 
     private static final long serialVersionUID = 2699892017698962733L;
 

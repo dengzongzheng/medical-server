@@ -1,4 +1,4 @@
-package com.dzz.medical.supervise.controller;
+package com.dzz.medical.system.controller;
 
 import com.dzz.medical.common.codec.UserAccountUtil;
 import com.dzz.medical.common.page.PageUtil;
@@ -6,9 +6,9 @@ import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.config.exception.BusinessException;
 import com.dzz.medical.util.controller.BaseController;
 import com.dzz.medical.supervise.domain.bo.SuperviseUserDetailBo;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserListParamDto;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserLoginParamDto;
-import com.dzz.medical.supervise.domain.dto.SuperviseUserRegisterParamDto;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserListParam;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserLoginParam;
+import com.dzz.medical.supervise.domain.dto.SuperviseUserRegisterParam;
 import com.dzz.medical.common.bean.BeanConvertTools;
 import com.dzz.medical.supervise.service.SuperviseUserService;
 import com.dzz.medical.supervise.service.impl.SuperviseUserServiceMongoImpl;
@@ -50,7 +50,7 @@ public class SuperviseUserController extends BaseController {
      * @return 结果
      */
     @PostMapping("/register")
-    public ResponseDzz register(@RequestBody SuperviseUserRegisterParamDto param) {
+    public ResponseDzz register(@RequestBody SuperviseUserRegisterParam param) {
 
         log.info("接收到的数据为:{}", param.toString());
         return superviseUserService.saveSuperviseUser(BeanConvertTools.convertToWebsiteUser(param));
@@ -64,7 +64,7 @@ public class SuperviseUserController extends BaseController {
      * @return 登录结果
      */
     @PostMapping("/login")
-    public ResponseDzz login(@RequestBody @Validated SuperviseUserLoginParamDto param, BindingResult bindingResult) {
+    public ResponseDzz login(@RequestBody @Validated SuperviseUserLoginParam param, BindingResult bindingResult) {
 
         bindResultHandler(bindingResult);
         ResponseDzz<SuperviseUserDetailBo> userDetailResponseDzz = superviseUserService
@@ -85,7 +85,7 @@ public class SuperviseUserController extends BaseController {
      * @return 结果
      */
     @GetMapping("/listUsers")
-    public ResponseDzz<PageUtil> listUsers(SuperviseUserListParamDto param){
+    public ResponseDzz<PageUtil> listUsers(SuperviseUserListParam param){
 
         return superviseUserService.listSuperviseUser(param);
     }

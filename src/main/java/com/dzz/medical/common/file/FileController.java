@@ -61,7 +61,7 @@ public class FileController {
                     originalFileName = file.getOriginalFilename();
                     assert originalFileName != null;
                     String fileType = originalFileName.substring(originalFileName.indexOf("."));
-                    fileName = String.valueOf(idService.getId()) + fileType;
+                    fileName = idService.getId() + fileType;
                     File file2 = new File(utilConfig.getUploadFilePath() + fileName);
                     file.transferTo(file2);
                     originalFileName = file.getOriginalFilename();

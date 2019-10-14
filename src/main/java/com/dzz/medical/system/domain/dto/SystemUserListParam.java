@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @ApiModel(description = "系统用户列表查询入参")
-public class SystemUserListParamDto implements Serializable {
+public class SystemUserListParam implements Serializable {
 
     private static final long serialVersionUID = 4381798040022496457L;
 

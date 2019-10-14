@@ -9,20 +9,22 @@ import java.util.Random;
  * @version 1.0.0
  * @since 2018年07月01 下午4:35
  */
+@SuppressWarnings("ALL")
 public class NumberRandom {
 
-    //随机数生成器
-    private static Random random;
-    //种子值
+    /**随机数生成器**/
+    private static Random RANDOM;
+
+    /**种子值**/
     private static long seed;
 
-    //静态代码块，初始化种子值及随机数生成器
+    /**静态代码块，初始化种子值及随机数生成器*/
     static {
         seed = System.currentTimeMillis();
-        random = new Random(seed);
+        RANDOM = new Random(seed);
     }
 
-    //私有构造函数，禁止实例化
+    /**私有构造函数，禁止实例化*/
     private NumberRandom() {}
 
     /**
@@ -31,7 +33,7 @@ public class NumberRandom {
      */
     public static void setSeed(long s){
         seed = s;
-        random = new Random(seed);
+        RANDOM = new Random(seed);
     }
 
     /**
@@ -47,7 +49,7 @@ public class NumberRandom {
      * @return double 随机数
      */
     public static double uniform(){
-        return random.nextDouble();
+        return RANDOM.nextDouble();
     }
 
     /**
@@ -56,7 +58,7 @@ public class NumberRandom {
      * @return int 随机数
      */
     public static int uniform(int N){
-        return random.nextInt(N);
+        return RANDOM.nextInt(N);
     }
 
     /**
