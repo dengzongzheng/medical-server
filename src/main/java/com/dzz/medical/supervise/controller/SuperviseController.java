@@ -32,7 +32,7 @@ public class SuperviseController {
      * @return 结果
      */
     @GetMapping("/testSupervise")
-    @PreAuthorize("hasAuthority('abc')")
+    @PreAuthorize("hasAuthority('test')")
     public ResponseDzz testSupervise() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("{}", authentication);

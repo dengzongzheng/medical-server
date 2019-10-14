@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 @Slf4j
-public class UserSuperviseController {
+public class SuperviseUserController {
 
     private SuperviseUserService superviseUserService;
 
@@ -51,10 +51,15 @@ public class UserSuperviseController {
         return superviseUserService.saveSuperviseUser(websiteUser);
     }
 
-
+    /**
+     * 用户退出
+     * @param token token
+     */
     @GetMapping("/logout")
-    public void logout(@RequestParam("access_token") String token) {
+    public ResponseDzz logout(@RequestParam("access_token") String token) {
+
         consumerTokenServices.revokeToken(token);
+        return ResponseDzz.ok();
     }
 
 }
