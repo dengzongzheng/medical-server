@@ -10,6 +10,7 @@ import com.dzz.medical.util.service.IdService;
 import com.dzz.medical.supervise.service.SuperviseUserService;
 import com.google.common.base.Strings;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
  * @since 2019年06月14 17:12
  */
 @Service
+@SuppressWarnings("ALL")
 public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
 
     private MongoTemplate mongoTemplate;
@@ -45,8 +47,13 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     public ResponseDzz saveSuperviseUser(SuperviseUser websiteUser) {
 
         websiteUser.setUserNo(idService.getFormatId("us_"));
-        mongoTemplate.save(websiteUser);
-        return ResponseDzz.ok();
+        ResponseDzz responseDzz = getSuperviseUserByName(websiteUser.getUserName());
+        if(responseDzz.checkSuccess() && Objects.nonNull(responseDzz.getData())) {
+            return ResponseDzz.fail("用户名" + websiteUser.getUserName() + "已经被使用啦");
+        }else{
+            mongoTemplate.save(websiteUser);
+            return ResponseDzz.ok();
+        }
     }
 
     @Override
