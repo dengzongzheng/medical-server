@@ -1,5 +1,6 @@
 package com.dzz.medical.supervise.controller;
 
+import com.dzz.medical.common.enums.RoleEnum;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.supervise.domain.dto.SuperviseUserRegisterParam;
 import com.dzz.medical.supervise.domain.model.SuperviseUser;
@@ -7,6 +8,9 @@ import com.dzz.medical.supervise.service.SuperviseUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,12 +33,31 @@ public class SuperviseUserController {
 
     private SuperviseUserService superviseUserService;
 
-    @Autowired
+
     private ConsumerTokenServices consumerTokenServices;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public void setUserSuperviseService(SuperviseUserService superviseUserService) {
         this.superviseUserService = superviseUserService;
+    }
+
+    @Autowired
+    public void setConsumerTokenServices(ConsumerTokenServices consumerTokenServices) {
+        this.consumerTokenServices = consumerTokenServices;
+    }
+
+    /**
+     * 测试一下
+     * @return 结果
+     */
+    @GetMapping("/testSupervise")
+    public ResponseDzz testSupervise() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("{}", authentication);
+        return ResponseDzz.ok(String.valueOf(System.currentTimeMillis()));
     }
 
     /**
@@ -48,6 +71,8 @@ public class SuperviseUserController {
         log.info("接收到的数据为:{}", param.toString());
         SuperviseUser websiteUser = new SuperviseUser();
         BeanUtils.copyProperties(param, websiteUser);
+        websiteUser.setRole(RoleEnum.M_ROLE.getCode());
+        websiteUser.setPassword(passwordEncoder.encode(param.getPassword()));
         return superviseUserService.saveSuperviseUser(websiteUser);
     }
 

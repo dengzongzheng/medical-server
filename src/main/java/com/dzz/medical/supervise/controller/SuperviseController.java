@@ -32,7 +32,7 @@ public class SuperviseController {
      * @return 结果
      */
     @GetMapping("/testSupervise")
-    @PreAuthorize("hasAuthority('test')")
+    @PreAuthorize("hasRole('m_user')")
     public ResponseDzz testSupervise() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         log.info("{}", authentication);
@@ -46,6 +46,7 @@ public class SuperviseController {
      * @return 结果
      */
     @PostMapping("/postSupervise")
+    @PreAuthorize("hasRole('m_user')")
     public ResponseDzz postSupervise(@RequestBody SupervisePostParam param){
 
         log.info("接收到的数据为:{}", param.toString());

@@ -128,4 +128,11 @@ public class SuperviseUserDetailBo implements Serializable {
      */
     @Field("manager_mobile")
     private String managerMobile;
+
+
+    /**
+     * 角色
+     */
+    @Field("role")
+    private String role;
 }

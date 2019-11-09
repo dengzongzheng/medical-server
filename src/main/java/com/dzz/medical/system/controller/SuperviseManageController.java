@@ -10,6 +10,7 @@ import com.dzz.medical.util.controller.BaseController;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,7 @@ public class SuperviseManageController extends BaseController {
      * @return 结果
      */
     @GetMapping("/listUsers")
+    @PreAuthorize("hasRole('m_user')")
     public ResponseDzz<PageUtil> listUsers(SuperviseUserListParam param){
 
         return superviseUserService.listSuperviseUser(param);
