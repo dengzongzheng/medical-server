@@ -1,12 +1,15 @@
 package com.dzz.medical.config.security;
 
+import com.dzz.medical.common.response.ResponseDzz;
+import com.dzz.medical.supervise.domain.bo.SuperviseUserDetailBo;
+import com.dzz.medical.supervise.service.SuperviseUserService;
 import java.util.Arrays;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,14 +22,23 @@ import org.springframework.stereotype.Service;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 
+    private SuperviseUserService superviseUserService;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public void setSuperviseUserService(SuperviseUserService superviseUserService) {
+        this.superviseUserService = superviseUserService;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return User.builder().username("dzz1").password(passwordEncoder.encode("123456"))
+        ResponseDzz<SuperviseUserDetailBo> responseDzz = superviseUserService.getSuperviseUserByName(username);
+        if(responseDzz.checkFail() || Objects.isNull(responseDzz.getData())) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
+        SuperviseUserDetailBo userDetailBo = responseDzz.getData();
+        return User.builder().username(userDetailBo.getUserName()).password(userDetailBo.getPassword())
                 .authorities(Arrays.asList(new Authority("test"),new Authority("abc"))).build();
     }
 }

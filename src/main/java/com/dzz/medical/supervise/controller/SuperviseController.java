@@ -2,9 +2,8 @@ package com.dzz.medical.supervise.controller;
 
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.supervise.domain.dto.SupervisePostParam;
-import com.dzz.medical.supervise.domain.model.SuperviseUser;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -46,12 +45,10 @@ public class SuperviseController {
      * @return 结果
      */
     @PostMapping("/postSupervise")
-    @PreAuthorize("hasRole('m_user')")
-    public ResponseDzz postSupervise(@RequestBody SupervisePostParam param){
+//    @PreAuthorize("hasRole('m_user')")
+    public ResponseDzz postSupervise(@RequestBody List<SupervisePostParam> param){
 
         log.info("接收到的数据为:{}", param.toString());
-        SuperviseUser websiteUser = new SuperviseUser();
-        BeanUtils.copyProperties(param, websiteUser);
         return ResponseDzz.ok();
     }
 
