@@ -38,7 +38,7 @@ public class OAuth2ResourceServer extends ResourceServerConfigurerAdapter {
 	public void configure(ResourceServerSecurityConfigurer resources) {
 	    //资源服务配置
         resources.resourceId("info");
-//		resources.accessDeniedHandler(getAccessDeniedHandler()).authenticationEntryPoint(getAuthenticationEntryPoint());
+		resources.accessDeniedHandler(getAccessDeniedHandler()).authenticationEntryPoint(getAuthenticationEntryPoint());
 	}
 
 	@Bean
