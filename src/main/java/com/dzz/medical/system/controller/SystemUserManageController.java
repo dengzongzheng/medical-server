@@ -13,6 +13,8 @@ import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -34,6 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/system")
 @Api(value = "监督用户管理", tags = "2、监督用户管理")
 @Slf4j
+@SuppressWarnings("ALL")
 public class SystemUserManageController extends BaseController {
 
 
@@ -89,5 +92,18 @@ public class SystemUserManageController extends BaseController {
     public ResponseDzz<SystemUserBo> detail(@RequestParam("userNo") String userNo){
 
         return systemUserService.getUserByNo(userNo);
+    }
+
+
+    /**
+     * 详情
+     * @return 结果
+     */
+    @GetMapping("/currentUser")
+    public ResponseDzz<String> currentUser(){
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userName = authentication.getName();
+        return ResponseDzz.ok(userName);
     }
 }
