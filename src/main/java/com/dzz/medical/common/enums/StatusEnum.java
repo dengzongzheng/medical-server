@@ -14,9 +14,8 @@ public enum StatusEnum {
     /**
      * 类别分类
      */
-    ZC(1, "正常"),
-    XX(2, "下线"),
-    PZING(0, "配置中");
+    EFFECTIVE(1, "使用中"),
+    DISABLE(0, "已停用");
 
     private Integer code;
 

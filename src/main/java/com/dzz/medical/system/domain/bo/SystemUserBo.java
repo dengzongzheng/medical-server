@@ -1,5 +1,10 @@
 package com.dzz.medical.system.domain.bo;
 
+import com.dzz.medical.common.enums.StatusEnum;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,9 +50,16 @@ public class SystemUserBo {
 
     /**
      * 状态1:有效 0:无效
+     * @see StatusEnum code
      */
     @Field("status")
     private Integer status;
+
+    /**
+     * 状态名称
+     * @see StatusEnum name
+     */
+    private String statusName;
 
     /**
      * 所管理的组织机构信息
@@ -67,4 +79,29 @@ public class SystemUserBo {
      */
     @Field("update_date")
     private Long updateDate;
+
+    /**
+     * 最近登录时间
+     */
+    private String recentLoginTime;
+
+
+    /**
+     * 重写statusName get方法用于转义
+     * @return 状态名称
+     */
+    public String getStatusName() {
+
+        return StatusEnum.getNameByCode(this.status);
+    }
+
+    public String getRecentLoginTime() {
+
+        if(null == updateDate || 0 == updateDate) {
+            return "";
+        }
+
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(updateDate), ZoneId.systemDefault())
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }

@@ -5,6 +5,7 @@ import com.dzz.medical.common.page.PageUtil;
 import com.dzz.medical.common.response.ResponseDzz;
 import com.dzz.medical.system.domain.bo.SystemUserBo;
 import com.dzz.medical.system.domain.dto.SystemUserListParam;
+import com.dzz.medical.system.domain.dto.SystemUserUpdateParam;
 import com.dzz.medical.system.domain.model.SystemUser;
 
 /**
@@ -32,6 +33,15 @@ public interface SystemUserService {
      * @return 结果
      */
     ResponseDzz saveUser(SystemUser user);
+
+
+    /**
+     * 更新用户信息
+     *
+     * @param param 用户参数
+     * @return 更新结果
+     */
+    ResponseDzz updateUser(SystemUserUpdateParam param);
 
 
     /**
