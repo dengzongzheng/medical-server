@@ -1,10 +1,8 @@
 package com.dzz.medical.system.domain.bo;
 
+import com.dzz.medical.common.date.DateConvertTools;
+import com.dzz.medical.common.enums.OrganizationEnum;
 import com.dzz.medical.common.enums.StatusEnum;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -69,16 +67,33 @@ public class SystemUserBo {
     private List<Integer> organizations;
 
     /**
+     * 所管理的组织机构信息
+     * @see com.dzz.medical.common.enums.OrganizationEnum name
+     */
+    private String organizationsString;
+
+
+    /**
      * 创建时间
      */
     @Field("create_date")
     private Long createDate;
 
     /**
+     * 创建时间字符类型
+     */
+    private String createDateString;
+
+    /**
      * 修改时间
      */
     @Field("update_date")
     private Long updateDate;
+
+    /**
+     * 修改时间字符型
+     */
+    private String updateDateString;
 
     /**
      * 最近登录时间
@@ -97,11 +112,24 @@ public class SystemUserBo {
 
     public String getRecentLoginTime() {
 
-        if(null == updateDate || 0 == updateDate) {
-            return "";
-        }
+        return DateConvertTools.formatDate(updateDate);
+    }
 
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(updateDate), ZoneId.systemDefault())
-                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    public String getCreateDateString() {
+
+        return DateConvertTools.formatDate(createDate);
+    }
+
+    public String getUpdateDateString() {
+        return DateConvertTools.formatDate(updateDate);
+    }
+
+    public String getOrganizationsString() {
+
+        StringBuilder temp = new StringBuilder();
+        for(Integer code : organizations) {
+            temp.append(OrganizationEnum.getNameByCode(code));
+        }
+        return temp.toString();
     }
 }
