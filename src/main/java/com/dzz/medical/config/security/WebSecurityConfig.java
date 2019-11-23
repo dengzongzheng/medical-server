@@ -1,5 +1,6 @@
 package com.dzz.medical.config.security;
 
+import com.dzz.medical.supervise.service.SuperviseUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    @Autowired
+    private SuperviseUserService superviseUserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -72,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         CustomizeDaoAuthenticationProvider customizeDaoAuthenticationProvider = new CustomizeDaoAuthenticationProvider();
         customizeDaoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        customizeDaoAuthenticationProvider.setSuperviseUserService(superviseUserService);
         customizeDaoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return customizeDaoAuthenticationProvider;
     }

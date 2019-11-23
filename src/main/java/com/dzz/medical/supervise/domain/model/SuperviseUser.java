@@ -74,6 +74,14 @@ public class SuperviseUser implements Serializable {
 
 
     /**
+     * 所管理的组织机构信息
+     * @see com.dzz.medical.common.enums.OrganizationEnum code
+     */
+    @Field("system_organizations")
+    private List<Integer> systemOrganizations;
+
+
+    /**
      * 企业名称
      */
     @Field("company_name")

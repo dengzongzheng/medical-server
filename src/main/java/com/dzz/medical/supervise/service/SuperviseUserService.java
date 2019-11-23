@@ -43,6 +43,14 @@ public interface SuperviseUserService {
 
 
     /**
+     * 根据用户名查用户信息
+     * @param userName 用户名
+     * @param role 用户角色
+     * @return 结果
+     */
+    ResponseDzz<SuperviseUserDetailBo> getSuperviseUserByName(String userName,String role);
+
+    /**
      * 根据用户名取用户信息
      * @param userNo 用户编号
      * @return 用户信息

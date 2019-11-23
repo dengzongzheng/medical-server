@@ -1,6 +1,10 @@
 package com.dzz.medical.config.security;
 
 import com.alibaba.fastjson.JSON;
+import com.dzz.medical.common.enums.RoleEnum;
+import com.dzz.medical.common.response.ResponseDzz;
+import com.dzz.medical.supervise.domain.bo.SuperviseUserDetailBo;
+import com.dzz.medical.supervise.service.SuperviseUserService;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +23,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Slf4j
 public class CustomizeDaoAuthenticationProvider extends DaoAuthenticationProvider {
 
+    private SuperviseUserService superviseUserService;
+
+    public void setSuperviseUserService(SuperviseUserService superviseUserService) {
+        this.superviseUserService = superviseUserService;
+    }
 
     @Override
     protected void additionalAuthenticationChecks(UserDetails userDetails,
@@ -27,25 +36,35 @@ public class CustomizeDaoAuthenticationProvider extends DaoAuthenticationProvide
         log.info("取到的参数为:{}", JSON.toJSONString(authentication.getDetails()));
 
         Map<String, String> param = (LinkedHashMap<String, String>) authentication.getDetails();
-        //添加短信验证码的登录认证方式
-        if("phone".equals(param.get("type"))) {
-            if (authentication.getCredentials() == null) {
-                logger.debug("Authentication failed: no credentials provided");
+        String loginType = param.get("type");
 
+        if(!loginType.equalsIgnoreCase(
+                RoleEnum.M_ROLE.getCode()) || !loginType.equalsIgnoreCase(RoleEnum.MANAGER_ROLE.getCode())) {
+            throw new BadCredentialsException(messages.getMessage(
+                    "AbstractUserDetailsAuthenticationProvider.badCredentials",
+                    "Bad credentials"));
+        }
+
+        //前台用户
+        if(RoleEnum.M_ROLE.getCode().equals(loginType)) {
+
+            ResponseDzz<SuperviseUserDetailBo> responseDzz = superviseUserService
+                    .getSuperviseUserByName(param.get("username"), RoleEnum.M_ROLE.getCode());
+            if(responseDzz.checkFail()) {
                 throw new BadCredentialsException(messages.getMessage(
                         "AbstractUserDetailsAuthenticationProvider.badCredentials",
                         "Bad credentials"));
             }
+        }
 
-            String presentedPassword = authentication.getCredentials().toString();
-
-            if(!"1000".equals(param.get("smsCode"))) {
+        if(RoleEnum.MANAGER_ROLE.getCode().equalsIgnoreCase(loginType)){
+            ResponseDzz<SuperviseUserDetailBo> responseDzz = superviseUserService
+                    .getSuperviseUserByName(param.get("username"), RoleEnum.MANAGER_ROLE.getCode());
+            if(responseDzz.checkFail()) {
                 throw new BadCredentialsException(messages.getMessage(
                         "AbstractUserDetailsAuthenticationProvider.badCredentials",
                         "Bad credentials"));
             }
-        }else{
-            super.additionalAuthenticationChecks(userDetails, authentication);
         }
 
     }

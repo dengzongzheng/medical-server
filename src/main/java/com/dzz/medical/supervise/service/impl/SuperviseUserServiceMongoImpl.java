@@ -92,6 +92,16 @@ public class SuperviseUserServiceMongoImpl implements SuperviseUserService {
     }
 
     @Override
+    public ResponseDzz<SuperviseUserDetailBo> getSuperviseUserByName(String userName, String role) {
+
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user_name").is(userName).and("role").is(role));
+
+        SuperviseUserDetailBo websiteUserDetail = mongoTemplate.findOne(query, SuperviseUserDetailBo.class, COLLECTION_NAME);
+        return ResponseDzz.ok(websiteUserDetail);
+    }
+
+    @Override
     public ResponseDzz getSuperviseUserByNo(String userNo) {
 
         Query query = new Query();
