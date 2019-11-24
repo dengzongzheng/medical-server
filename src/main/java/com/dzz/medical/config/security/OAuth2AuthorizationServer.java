@@ -49,7 +49,7 @@ public class OAuth2AuthorizationServer extends AuthorizationServerConfigurerAdap
                 .authorizedGrantTypes("client_credentials", "password", "refresh_token")
                 .scopes("select")
                 .authorities("client")
-                .accessTokenValiditySeconds(10)
+                .accessTokenValiditySeconds(1800)
                 .secret(passwordEncoder.encode("123456"));
     }
 
