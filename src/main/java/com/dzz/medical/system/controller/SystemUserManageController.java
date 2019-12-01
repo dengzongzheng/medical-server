@@ -96,7 +96,7 @@ public class SystemUserManageController extends BaseController {
 
 
     /**
-     * 详情
+     * 当前用户
      * @return 结果
      */
     @GetMapping("/currentUser")
